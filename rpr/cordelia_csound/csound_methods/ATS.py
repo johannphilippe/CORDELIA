@@ -11,14 +11,9 @@ from datetime import datetime
 import logging
 
 from _func import *
+import tempfile
 
-# Path to the directory containing the sox executable
-homebrew_directory = '/opt/homebrew/bin'
-
-# Modify the PATH environment variable
-os.environ['PATH'] = f"{homebrew_directory}:{os.environ['PATH']}"
-
-logging.basicConfig(filename='/Users/j/cordelia-script.log', level=logging.DEBUG, filemode='w')
+logging.basicConfig(filename=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cordelia-script.log'), level=logging.DEBUG, filemode='w')
 
 logging.info('Script execution path: %s', os.path.abspath(__file__))
 
@@ -39,7 +34,7 @@ def extract_score_data(string):
 
 def run_atsa(command):
 	try:
-		process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
 		stdout, stderr = process.communicate()
 		if process.returncode != 0:
 			logging.error(f"{stderr.decode('utf-8')}")
@@ -59,11 +54,11 @@ output_file_wav = sys.argv[3]
 basename = os.path.splitext(os.path.basename(input_file_wav))[0]
 
 #output_tempdir = os.path.dirname(file)
-output_tempdir = '/Users/j/Documents/temp/'
+output_tempdir = tempfile.gettempdir()
 
 log_file = output_file_wav + '.log'
 
-with open(input_file_orc, 'r') as f:
+with open(input_file_orc, 'r', encoding='utf-8') as f:
 	orc_code = f.read()
 	sco_python_code = extract_score_data(orc_code)
 
@@ -76,7 +71,7 @@ csound_commands = []
 for f in mono_files:
 	input_file = f
 	output_file = os.path.join(output_tempdir, f'{os.path.splitext(os.path.basename(input_file))[0]}.ats')
-	csound_commands.append(['/usr/local/bin/atsa', input_file, output_file])
+	csound_commands.append([find_executable('atsa'), input_file, output_file])
 
 with concurrent.futures.ThreadPoolExecutor() as executor:
 	# Using a list comprehension to start all commands concurrently.
@@ -114,7 +109,7 @@ cs.readScore(score)
 
 cs.start()
 
-with open(log_file, 'a') as f:
+with open(log_file, 'a', encoding='utf-8') as f:
 	while cs.performKsmps() == 0:
 		string = cs.firstMessage()
 		# Set the custom performance callback
@@ -128,11 +123,11 @@ del cs
 
 time.sleep(1/8)
 
-with open(output_file_wav + '--finished', 'w') as f:
+with open(output_file_wav + '--finished', 'w', encoding='utf-8') as f:
 	f.write('I EXIST')
 
 try:
-	with open(input_file_orc, 'w') as f:
+	with open(input_file_orc, 'w', encoding='utf-8') as f:
 		f.write(orc_code)
 	if REMOVE_FILEs:
 		# Remove the file

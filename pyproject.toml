@@ -17,6 +17,8 @@ pyyaml = "^6.0.2"
 rich = "^13.9.4"
 dearpygui = "^2.0.0"
 rapidfuzz = "^3.14.3"
+sounddevice = "^0.4.6"
+soundfile = "^0.12.1"
 
 
 [build-system]

@@ -3,7 +3,7 @@ import pprint
 file_path = '/Users/j/Documents/PROJECTs/CORDELIA/rpr/cordelia_instruments/ATS/cheby-seno-full.orc'
 
 csmain = []
-with open(file_path, 'r') as f:
+with open(file_path, 'r', encoding='utf-8') as f:
 	lines = f.readlines()
 	for line in lines:
 

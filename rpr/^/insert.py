@@ -19,7 +19,7 @@ def createtextitem(track, position, length, text):
 
 def readfile(path):
   
-  file = open(path, 'r')
+  file = open(path, 'r', encoding='utf-8')
 
   #grab instrument name
   instr_name = re.findall(r'"(.*?)"', file.read())
@@ -27,7 +27,7 @@ def readfile(path):
   
   #RPR_ShowConsoleMsg(instr_name)
   
-  file = open(path, 'r')
+  file = open(path, 'r', encoding='utf-8')
   
   for line in file:
     #i to schedulech

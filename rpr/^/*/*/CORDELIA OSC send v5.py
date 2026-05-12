@@ -4,7 +4,7 @@ sys.setdefaultencoding('utf8')
 # coding: utf-8
 
 list_instr = []
-with open('/Users/j/Documents/PROJECTs/CORDELIA/_scripts/_cmd/_list_instr.txt') as name:
+with open('/Users/j/Documents/PROJECTs/CORDELIA/_scripts/_cmd/_list_instr.txt', encoding='utf-8') as name:
   list_instr = name.readlines()
 
 

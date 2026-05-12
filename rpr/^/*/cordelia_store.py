@@ -16,10 +16,10 @@ ORC_FILE = project_folder + project_name + '.orc'
 LOG_FILE = project_folder + project_name + '.log'
 WAV_FILE = project_folder + project_name + '.wav'
 
-with open(CORDELIA_DIR + '/_setting' + '/instr.json') as f:
+with open(CORDELIA_DIR + '/_setting' + '/instr.json', encoding='utf-8') as f:
 	CORDELIA_INSTR_json = json.load(f)
 
-with open(CORDELIA_DIR + '/_setting' + '/gen.json') as f:
+with open(CORDELIA_DIR + '/_setting' + '/gen.json', encoding='utf-8') as f:
 	CORDELIA_GEN_json = json.load(f)
 
 @dataclass
@@ -156,8 +156,8 @@ def get_item():
 	return midi_notes, text_items
 
 def remove_escape_codes(input_file, output_file):
-    with open(input_file, 'r') as f_in:
-        with open(output_file, 'w') as f_out:
+    with open(input_file, 'r', encoding='utf-8') as f_in:
+        with open(output_file, 'w', encoding='utf-8') as f_out:
             for line in f_in:
                 line = re.sub(r'\x1B\[([0-9]{1,2}(;[0-9]{1,2})?)?[m|K]', '', line)
                 f_out.write(line)
@@ -171,7 +171,7 @@ def main():
 
 	includes = [CORDELIA_DIR + '/_core/setting.orc']
 
-	with open(CORDELIA_DIR + '/_core/include.orc') as f:
+	with open(CORDELIA_DIR + '/_core/include.orc', encoding='utf-8') as f:
 		for line in f:
 			path = line.strip().replace('"', '').replace('#include ', '')
 			includes.append(path)
@@ -261,12 +261,7 @@ if retval:
 
 	command = f'csound -3 --nchnls={chns} -r {sr} --ksmps={ksmps} --orc {ORC_FILE} -o {WAV_FILE} &> {LOG_FILE}'
 
-	#subprocess.call(['osascript', '-e', f'tell application "Terminal" to do script "{command}"'])
-	script = f'tell application "Terminal" to do script "{command} && exit"'
-	subprocess.call(['osascript', '-e', script])
-
-	# Wait for the command to finish
-	p = subprocess.Popen(command, shell=True)
+	p = subprocess.Popen(command, shell=True, encoding='utf-8')
 	p.wait()
 
 	# Check the exit status

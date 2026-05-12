@@ -1,14 +1,15 @@
-import sys, math, os
+import sys, math, shutil
 from pathlib import Path
 import abjad
 
-LILYPOND_SETTING_DEFAULT = '/Users/j/Documents/PROJECTs/CORDELIA/rpr/_lilypond-def/pre.ly'
+# rpr/_lilypond-def/txt2ly.py -> _lilypond-def/
+LILYPOND_SETTING_DEFAULT = Path(__file__).resolve().parent / 'pre.ly'
 
 def fetch_instr_names(file):
 	
 	instr_names = set()
 	
-	with open(file, 'r') as f:
+	with open(file, 'r', encoding='utf-8') as f:
 		for line in f:
 			start_index = line.find('"') + 1
 			end_index = line.find('"', start_index)
@@ -23,7 +24,7 @@ def add_string_for_each_name(instr_name):
 
 def convert_each_line(file):	
 	lines = []
-	with open(file, 'r') as f:
+	with open(file, 'r', encoding='utf-8') as f:
 		for line in f:
 			#"bass", 0.0, 0.2789473684210526, 0.0146484375, giclassic, 1825.18519
 			name, start, dur, dyn, env, freq = line.split(', ')
@@ -54,9 +55,9 @@ for file in sys.argv[1:]:
 	
 	lines.extend(convert_each_line(file))
 
-	output = os.path.join(dir_path, basename +'.ly')
-	os.system(f'cp {LILYPOND_SETTING_DEFAULT} {output}')
-	with open(output, 'a') as f:
+	output = Path(file).parent / (basename + '.ly')
+	shutil.copy2(LILYPOND_SETTING_DEFAULT, output)
+	with open(output, 'a', encoding='utf-8') as f:
 
 		f.write('\n<<\n')
 		f.write('\n'.join(lines))

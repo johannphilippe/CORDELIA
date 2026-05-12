@@ -11,8 +11,8 @@ try:
     channels = sox.file_info.channels(input_file_wav)
         
 except Exception as e:
-    with open('/Users/j/Desktop/Ss1.txt', 'w') as f:
+    with open('/Users/j/Desktop/Ss1.txt', 'w', encoding='utf-8') as f:
         f.write(e)
     
-with open('/Users/j/Desktop/Ss1.txt', 'w') as f:
+with open('/Users/j/Desktop/Ss1.txt', 'w', encoding='utf-8') as f:
     f.write(str(channels))

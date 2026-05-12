@@ -1,5 +1,12 @@
+from pathlib import Path
 from constants.var import cordelia_date
 
-cordelia_dir = '/Users/j/Documents/PROJECTs/CORDELIA/'
+# Derive the project root from this file's location:
+# cordelia/constants/path.py -> cordelia/constants/ -> cordelia/ -> project root
+CORDELIA_ROOT = Path(__file__).resolve().parent.parent.parent
+CORDELIA_PKG  = Path(__file__).resolve().parent.parent
 
-cordelia_score = f'../_score/cor{cordelia_date}'
+# Legacy name kept for any importer still using cordelia_dir
+cordelia_dir = CORDELIA_ROOT
+
+cordelia_score = CORDELIA_ROOT / '_score' / f'cor{cordelia_date}'

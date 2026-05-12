@@ -69,7 +69,7 @@ class PolylineParser:
 				return False
 
 		score = []
-		with open(csound_score_path, 'r') as f:
+		with open(csound_score_path, 'r', encoding='utf-8') as f:
 			lines = f.readlines()
 			all_i_lines = [line for line in lines if line.startswith('i')]
 			while lines:
@@ -270,7 +270,7 @@ if __name__ == '__main__':
 	from pathlib import Path
 
 	def read_json_input(json_path):
-		with open(json_path, 'r') as f:
+		with open(json_path, 'r', encoding='utf-8') as f:
 			return json.load(f)
 
 	def display_note_table(params_by_staff):

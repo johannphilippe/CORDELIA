@@ -3,7 +3,7 @@ import csv, re
 csv_path = '/Users/j/Documents/PROJECTs/CORDELIA/script/generate_gen/_data/minerals.csv'
 
 # Open the CSV file and read its contents
-with open(csv_path, 'r') as csvfile:
+with open(csv_path, 'r', encoding='utf-8') as csvfile:
 	csvreader = csv.reader(csvfile)
 
 	# Create a list to store the rows

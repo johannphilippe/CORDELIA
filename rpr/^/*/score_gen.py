@@ -11,17 +11,14 @@ project_name = project_name_ext.rsplit(".", 1)[0]
 IDRA_path = '/Users/j/Documents/PROJECTs/IDRA/_core/'
 
 # create FOLDER
-folder_command = 'mkdir ' + project_folder + project_name
-os.system(folder_command)
+Path(project_folder + project_name).mkdir(parents=True, exist_ok=True)
 project_folder = project_folder + project_name + '/'
 
 # create COMMAND
 IDRA_command_name_ext = 'command.txt'
 command_name_ext = '__' + project_name + '.command'
 
-copy_command = 'cp "' + IDRA_path + IDRA_command_name_ext + '" "' + project_folder + command_name_ext + '"'
-#RPR_ShowConsoleMsg(copy_command)
-os.system(copy_command)
+shutil.copy2(IDRA_path + IDRA_command_name_ext, project_folder + command_name_ext)
 
 
 
@@ -38,7 +35,7 @@ def write_orc(orc):
 
   global folder, orc_path
   
-  with open(orc_path, 'a') as f:
+  with open(orc_path, 'a', encoding='utf-8') as f:
       f.write(orc)
       
   #RPR_ShowConsoleMsg(path)
@@ -138,8 +135,7 @@ IDRA_csd_name_ext = '_livecode-settings.csd'
 csd_name_ext = project_name + '_score' + '.csd'
 csd_path = project_folder + csd_name_ext
 
-copy_csd = 'cp ' + IDRA_path + IDRA_csd_name_ext + ' ' + project_folder + csd_name_ext
-os.system(copy_csd)
+shutil.copy2(IDRA_path + IDRA_csd_name_ext, project_folder + csd_name_ext)
 
 def csd_write():
 
@@ -149,7 +145,7 @@ def csd_write():
   include_orc = '#include "./' + orc_name_ext + '"'
   close = '\n\n\n\n</CsInstruments>\n<CsScore>\n</CsScore>\n</CsoundSynthesizer>'
   
-  with open(csd_path, 'a') as f:
+  with open(csd_path, 'a', encoding='utf-8') as f:
       f.write('\n' + define_nolimit + define_midi + include_csd + include_orc + close)
 
 csd_write()

@@ -56,7 +56,7 @@ def main(file_path):
 			names, cent_diffs, freqs = get_tuning_list(take)
 			# Create a new MIDI note
 
-			with open(file_path, 'r') as file:
+			with open(file_path, 'r', encoding='utf-8') as file:
 				
 				first_time = None
 				round_val = 2
@@ -97,7 +97,7 @@ def main_to_midi(file_path):
 			names, cent_diffs, freqs = get_tuning_list(take)
 			# Create a new MIDI note
 
-			with open(file_path, 'r') as file:
+			with open(file_path, 'r', encoding='utf-8') as file:
 				
 				first_time = None
 				prev_time = 0

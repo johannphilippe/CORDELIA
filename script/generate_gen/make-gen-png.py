@@ -11,7 +11,7 @@ for file in files:
 	print(file)
 	basename = Path(file).stem
 
-	with open(file) as f:
+	with open(file, encoding='utf-8') as f:
 		string = f.read()
 
 

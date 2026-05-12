@@ -1,0 +1,11 @@
+librosa>=0.10.1
+numpy>=1.26.4
+ctcsound>=6.17.1
+python-osc>=1.8.3
+abjad>=3.19
+pyyaml>=6.0.2
+rich>=13.9.4
+dearpygui>=2.0.0
+rapidfuzz>=3.14.3
+sounddevice>=0.4.6
+soundfile>=0.12.1

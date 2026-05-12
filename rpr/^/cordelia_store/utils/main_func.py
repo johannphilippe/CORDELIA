@@ -9,6 +9,7 @@ from .config import BUFFER_SIZE
 from .config import MAIN_TRACK_NAME, MAIN_RENDER_DIRECTORY, MAIN_PROJECT_NAME
 from .config import CORDELIA_INCLUDE_PATHs
 from .config import INSTR_JSON
+from .config import SONVS_SUCCESS, SONVS_ERROR
 
 
 def get_all_items():
@@ -138,6 +139,19 @@ def write_strings(items):
 				
 
 
+def play_sound(path):
+	if not path:
+		return
+	try:
+		import sounddevice as sd
+		import soundfile as sf
+		data, sr = sf.read(path)
+		sd.play(data, sr)
+		sd.wait()
+	except Exception:
+		pass
+
+
 def execute_csound(chns, sr, ksmps):
 
 	for each_track_name in track_names:
@@ -148,25 +162,13 @@ def execute_csound(chns, sr, ksmps):
 
 		command = f'csound -3 --nchnls={chns} -r {sr} --ksmps={ksmps} --orc {orc_file} -o {wav_file} &> {log_file}'
 
-		# subprocess.call(['osascript', '-e', f'tell application "Terminal" to do script "{command}"'])
-		#script = f'tell application "Terminal" to do script "{command} && exit"'
-
-		script =	f'tell application "Terminal"\n' \
-						f'set myscript to "{command} && exit || echo ERROR $?"\n' \
-						f'do script myscript\n' \
-					f'end tell'
-		
-		subprocess.call(['osascript', '-e', script])
-
-		""" # Wait for the command to finish
-		p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
 		stdout, stderr = p.communicate()
 
-		# Check the exit status
 		if p.returncode == 0:
-			string = 'Command completed successfully!'
-			log(string)
+			log('Command completed successfully!')
+			play_sound(SONVS_SUCCESS)
 		else:
-			string = f'Command failed with exit code {p.returncode}.'
-			log(p.returncode)
-			break """
+			log(f'Command failed with exit code {p.returncode}.')
+			play_sound(SONVS_ERROR)
+			break

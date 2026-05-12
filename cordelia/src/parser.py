@@ -7,6 +7,7 @@ from constants.var import *
 
 from constants.var import cordelia_json
 from constants.var import cordelia_init_code, cordelia_given_else, cordelia_given_instr
+from constants.path import CORDELIA_ROOT
 from csoundAPI.cs import cordelia_nchnls
 
 from csoundAPI.cs import remember, csound_clear_instrument
@@ -122,7 +123,7 @@ def verify_scala(token):
 def verify_instr(token):
 	
 	def include_instr(instr_json):
-		with open(instr_json['path']) as f:
+		with open(CORDELIA_ROOT / instr_json['path'], encoding='utf-8') as f:
 			cordelia_init_code.append(f.read())
 
 	def include_scripted_instr(instr_name, instr_path):
@@ -134,7 +135,7 @@ def verify_instr(token):
 		for i in required_instr:
 			if i not in cordelia_given_instr:
 				send_instr(i)
-		with open(instr_json['path']) as f:
+		with open(CORDELIA_ROOT / instr_json['path'], encoding='utf-8') as f:
 			cordelia_init_code.append(f.read())
 		
 	def include_sonvs(instr_json, instrument_name):
@@ -145,7 +146,8 @@ def verify_instr(token):
 
 		for index, p in enumerate(instr_json['path']):
 			index_file = index + 1
-			sonvs_string.append(f'gS{instrument_name}_file_{index_file} init "{p}"')
+			abs_p = str(CORDELIA_ROOT / p)
+			sonvs_string.append(f'gS{instrument_name}_file_{index_file} init "{abs_p}"')
 			for i in range(int(channels)):
 				ch = str(i + 1)
 				num = str(index_num)
@@ -156,7 +158,7 @@ def verify_instr(token):
 
 		sonvs_string.append(f'gi{instrument_name}_list[] fillarray {", ".join(audio_files)}')
 
-		with open(instr_json['orc'], 'r') as f:
+		with open(CORDELIA_ROOT / instr_json['orc'], 'r', encoding='utf-8') as f:
 			code = f.read()
 			code = code.replace('---NAME---', instrument_name)
 			code = code.replace('---PITCH---', instr_json['pitch'])
@@ -208,7 +210,7 @@ def verify_instr(token):
 				if instr_json['type'] == 'scripted_instr':
 					valid_instrument_name = value.replace('-', '_')
 					print(f'📩{valid_instrument_name} is verified.')
-					include_scripted_instr(value, instr_json['path'])
+					include_scripted_instr(value, str(CORDELIA_ROOT / instr_json['path']))
 
 					create_instr_setting(valid_instrument_name)
 

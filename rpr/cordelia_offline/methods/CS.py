@@ -5,14 +5,9 @@ import re
 import soundfile as sf
 from datetime import datetime
 import logging
+import tempfile
 
-# Path to the directory containing the sox executable
-homebrew_directory = '/opt/homebrew/bin'
-
-# Modify the PATH environment variable
-os.environ['PATH'] = f"{homebrew_directory}:{os.environ['PATH']}"
-
-logging.basicConfig(filename='/Users/j/cordelia-script.log', level=logging.DEBUG, filemode='w')
+logging.basicConfig(filename=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cordelia-script.log'), level=logging.DEBUG, filemode='w')
 
 logging.info('Script execution path: %s', os.path.abspath(__file__))
 current_date = datetime.now()
@@ -43,12 +38,12 @@ with sf.SoundFile(input_file_wav) as f:
     channels = f.channels
 
 #output_tempdir = os.path.dirname(file)
-output_tempdir = '/Users/j/Documents/temp/'
+output_tempdir = tempfile.gettempdir()
 log_file = output_file_wav + '.log'
 
 orc_code = f'gSfile init "{input_file_wav}"\n'
 
-with open(input_file_orc, 'r') as f:
+with open(input_file_orc, 'r', encoding='utf-8') as f:
 	orc_code += f.read()
 	sco_python_code = extract_score_data(orc_code)
 
@@ -80,7 +75,7 @@ cs.compileOrc(orc_code)
 cs.readScore(score)
 
 cs.start()
-with open(log_file, 'a') as f:
+with open(log_file, 'a', encoding='utf-8') as f:
 	while cs.performKsmps() == 0:
 		string = cs.firstMessage()
 		# Set the custom performance callback
@@ -94,12 +89,12 @@ del cs
 
 time.sleep(1/8)
 
-with open(output_file_wav + '--finished', 'w') as f:
+with open(output_file_wav + '--finished', 'w', encoding='utf-8') as f:
 	f.write('I EXIST')
 
 try:
 	# Remove the file
-	with open(input_file_orc, 'w') as f:
+	with open(input_file_orc, 'w', encoding='utf-8') as f:
 		f.write(orc_code)
 	if REMOVE_FILEs:
 		os.remove(input_file_wav)

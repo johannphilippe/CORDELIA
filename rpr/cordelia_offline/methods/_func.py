@@ -1,7 +1,27 @@
 import os
+import shutil
+import sys
 import logging
 import soundfile as sf
 import numpy as np
+from pathlib import Path
+
+def find_executable(name):
+	"""Find an executable via PATH, then fall back to common platform locations."""
+	path = shutil.which(name)
+	if path:
+		return path
+	if sys.platform == 'darwin':
+		fallbacks = [Path('/opt/homebrew/bin'), Path('/usr/local/bin')]
+	elif sys.platform.startswith('linux'):
+		fallbacks = [Path('/usr/local/bin'), Path('/usr/bin')]
+	else:
+		fallbacks = []
+	for directory in fallbacks:
+		candidate = directory / name
+		if candidate.is_file():
+			return str(candidate)
+	raise RuntimeError(f"'{name}' not found. Install it and ensure it is on your PATH.")
 
 def create_mono_files(input_file_wav, basename, output_dir):
 

@@ -33,7 +33,7 @@ for link in links:
 		p2 = scrape_in_table(soup_link, 'gravity')
 
 		if p1:
-			with open(text_file, 'a') as f:
+			with open(text_file, 'a', encoding='utf-8') as f:
 				line = f'{title}, {p1}, {p2}'
 				print(line)
 				f.write(line + '\n')

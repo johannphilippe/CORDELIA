@@ -1,13 +1,16 @@
 import json, subprocess, re, os, shutil
+from pathlib import Path
 
 BUFFER_SIZE = 1024 * 1024
 MIDI_CORRECTION = 1024
 
-CORDELIA_DIR = '/Users/j/Documents/PROJECTs/CORDELIA'
+# rpr/^/*23/cordelia_store-v2.py -> *23/ -> ^/ -> rpr/ -> project root
+CORDELIA_DIR = Path(__file__).resolve().parent.parent.parent.parent
 MAIN_TRACK_NAME = '_main'
 
-SONVS_SUCCESS = '/Users/j/Documents/script/OOT_Get_Heart.wav'
-SONVS_ERROR = '/Users/j/Documents/script/OOT_Navi_WatchOut1.wav'
+# Sound files for feedback — set to None or point to your own files
+SONVS_SUCCESS = None
+SONVS_ERROR   = None
 
 project_dir, buf_size = RPR_GetProjectPath("", 512)
 project_dir = project_dir + '/'
@@ -21,10 +24,10 @@ main_track_dir = project_dir + f'tracks/{MAIN_TRACK_NAME}'
 
 
 
-with open(CORDELIA_DIR + '/_setting' + '/instr.json') as f:
+with open(CORDELIA_DIR / '_setting' / 'instr.json', encoding='utf-8') as f:
 	CORDELIA_INSTR_json = json.load(f)
 
-with open(CORDELIA_DIR + '/_setting' + '/gen.json') as f:
+with open(CORDELIA_DIR / '_setting' / 'gen.json', encoding='utf-8') as f:
 	CORDELIA_GEN_json = json.load(f)
 
 class Item:
@@ -170,7 +173,7 @@ def create_dirs():
 
 def get_cordelia_include_paths():
 	paths = [CORDELIA_DIR + '/_core/setting.orc']
-	with open(CORDELIA_DIR + '/_core/include.orc') as f:
+	with open(CORDELIA_DIR + '/_core/include.orc', encoding='utf-8') as f:
 		for line in f:
 			path = line.strip().replace('"', '').replace('#include ', '')
 			paths.append(path)
@@ -348,12 +351,25 @@ def write_strings():
 				each_orc_path.append(orc_file)
 
 	main_score_txt = os.path.join(directory, f'{project_name}-{each_track_name}-score.txt')
-	with open(main_score_txt, 'w') as f:
+	with open(main_score_txt, 'w', encoding='utf-8') as f:
 		for line in score_lines:
 			if line.startswith('eva_midi'):
 				stripped_line = line.replace('eva_midi', '').lstrip().rstrip()
 				f.write(f'{stripped_line}\n')
 
+
+
+def play_sound(path):
+	if not path:
+		return
+	try:
+		import sounddevice as sd
+		import soundfile as sf
+		data, sr = sf.read(path)
+		sd.play(data, sr)
+		sd.wait()
+	except Exception:
+		pass
 
 
 def execute_csound(chns, sr, ksmps):
@@ -365,37 +381,18 @@ def execute_csound(chns, sr, ksmps):
 			orc_file = os.path.join(directory, f'{project_name}-{each_track_name}.orc')
 			wav_file = os.path.join(directory, f'{project_name}-{each_track_name}.wav')
 			log_file = os.path.join(directory, f'{project_name}-{each_track_name}.log')
-			cmd_file = os.path.join(directory, f'_.command')
-
 			command = f'csound -3 --nchnls={chns} -r {sr} --ksmps={ksmps} --orc {orc_file} -o {wav_file} &> {log_file}'
 
-			with open(cmd_file, 'w') as f:
-				f.write(command)
-			
-			subprocess.call(['chmod', '+x', cmd_file])
-
-			# subprocess.call(['osascript', '-e', f'tell application "Terminal" to do script "{command}"'])
-			#script = f'tell application "Terminal" to do script "{command} && exit"'
-
-			script =	f'tell application "Terminal"\n' \
-							f'set csound_script to "{command} && afplay -v 0.35 {SONVS_SUCCESS} && exit || echo ERROR $?"\n' \
-							'do script csound_script\n' \
-						f'end tell'
-			
-			subprocess.call(['osascript', '-e', script])
-
-			""" # Wait for the command to finish
-			p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+			p = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='utf-8')
 			stdout, stderr = p.communicate()
 
-			# Check the exit status
 			if p.returncode == 0:
-				string = 'Command completed successfully!'
-				log(string)
+				log('Command completed successfully!')
+				play_sound(SONVS_SUCCESS)
 			else:
-				string = f'Command failed with exit code {p.returncode}.'
-				log(p.returncode)
-				break """
+				log(f'Command failed with exit code {p.returncode}.')
+				play_sound(SONVS_ERROR)
+				break
 
 retval, title, num_inputs, captions_csv, retvals_csv, retvals_csv_sz = RPR_GetUserInputs('Render with', 3, 'channels, sample rate, ksmps', '2,48,64', 512)
 

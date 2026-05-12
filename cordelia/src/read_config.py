@@ -1,7 +1,8 @@
+from pathlib import Path
 import yaml
 
-# Define the file path for the configuration file
-CONFIG_FILE_PATH = '/Users/j/Documents/PROJECTs/CORDELIA/cordelia/config.yaml'
+# cordelia/src/read_config.py -> cordelia/src/ -> cordelia/ -> config.yaml
+CONFIG_FILE_PATH = Path(__file__).resolve().parent.parent / 'config.yaml'
 
 class Main_config:
 	def __init__(self):
@@ -17,7 +18,7 @@ class Main_config:
 	def load_config(self, file_path):
 		"""Load the YAML configuration file."""
 		try:
-			with open(file_path, 'r') as f:
+			with open(file_path, 'r', encoding='utf-8') as f:
 				return yaml.safe_load(f)
 		except FileNotFoundError:
 			raise ValueError(f"Configuration file not found: {file_path}")

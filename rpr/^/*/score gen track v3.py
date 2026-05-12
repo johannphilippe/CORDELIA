@@ -1,4 +1,5 @@
-import struct, re, sys, os
+import struct, re, sys, os, shutil
+from pathlib import Path
 reload(sys)
 sys.setdefaultencoding('utf8')
 
@@ -25,12 +26,9 @@ IDRA_csd_ending_name = '.csd'
 IDRA_project_dir = reaper_project_path + reaper_project_name + '_instrs/'
 #RPR_ShowConsoleMsg(IDRA_project_dir + "\n")
 
-if os.path.isdir(IDRA_project_dir):
-  #RPR_ShowConsoleMsg(IDRA_project_dir + "\n")
-  os.system('rm -r ' + IDRA_project_dir)
+shutil.rmtree(IDRA_project_dir, ignore_errors=True)
 
-create_dir_command = 'mkdir ' + IDRA_project_dir
-os.system(create_dir_command)
+Path(IDRA_project_dir).mkdir(parents=True, exist_ok=True)
 
 #GET TIME POSITION
 time_sel_isset, time_sel_isloop, time_sel_start, time_sel_end, time_sel_allowautoseek = RPR_GetSet_LoopTimeRange(0, 0, 0, 0, 0)          
@@ -63,7 +61,7 @@ def gen_dir_for_each_track():
       dir_track_name = str(int(reaper_parent_track_num)) + '-' + reaper_parent_track_name
 
       #CREATE DIRECTORY WITH THE TRACK NAME
-      os.system('mkdir ' + IDRA_project_dir + dir_track_name)
+      Path(IDRA_project_dir + dir_track_name).mkdir(parents=True, exist_ok=True)
       track_dir = IDRA_project_dir + dir_track_name + '/'
       #RPR_ShowConsoleMsg(track_dir + "\n")
 
@@ -77,7 +75,7 @@ gen_dir_for_each_track()
 
 for path in IDRA_dir_name_array:
   if path!=None:
-    os.system('cp "' + IDRA_core_path + 'command.txt' + '" "' + path.rsplit('/', 1)[0] + '/__' + path.rsplit('/', 1)[-1] + '.command' + '"')
+    shutil.copy2(IDRA_core_path + 'command.txt', path.rsplit('/', 1)[0] + '/__' + path.rsplit('/', 1)[-1] + '.command')
 
 #CREATE AN ARRAY WITH ALL THE MEDIA ITEMS
 IDRA_instr_num_array = []
@@ -142,7 +140,7 @@ def csound_score():
 
               comma = ", "
               OSC_schedule = 'evaMIDI "' + reaper_track_parent_name + '", ' + str(note_start) + comma + str(note_dur) + comma + str(note_vel) + comma + note_env + comma + 'mtof:i(' + str(note_pitch) + ')\n'
-              with open(IDRA_track_dir, 'a') as f:
+              with open(IDRA_track_dir, 'a', encoding='utf-8') as f:
                 f.write(OSC_schedule)
           else:
             #---
@@ -167,10 +165,10 @@ def csound_score():
 
             IDRA_instr = '\tinstr\t' + IDRA_instr_num + '\n' + IDRA_string_track_num + IDRA_int_track_num + '\n' + IDRA_instr_content + '\n' + '\tendin\n'
             
-            with open(IDRA_track_dir, 'a') as f:
+            with open(IDRA_track_dir, 'a', encoding='utf-8') as f:
                 f.write(IDRA_instr)
 
-            with open(IDRA_track_dir, 'a') as f:
+            with open(IDRA_track_dir, 'a', encoding='utf-8') as f:
                 f.write(IDRA_schedule)
             
             indx += 1
@@ -218,10 +216,10 @@ def csound_score():
               if path!=None:
                 temp_path = path + IDRA_score_ending_name
 
-                with open(temp_path, 'a') as f:
+                with open(temp_path, 'a', encoding='utf-8') as f:
                     f.write(IDRA_instr)
 
-                with open(temp_path, 'a') as f:
+                with open(temp_path, 'a', encoding='utf-8') as f:
                     f.write(IDRA_schedule)
             
             indx += 1
@@ -234,18 +232,18 @@ IDRA_exit = 'instr 700\nexitnow()\nendin\nschedule 700, '+ str(IDRA_time_end) + 
 for path in IDRA_dir_name_array:
   if path!=None:
     temp_path = path + IDRA_score_ending_name
-    with open(temp_path, 'a') as f:
+    with open(temp_path, 'a', encoding='utf-8') as f:
       f.write(IDRA_exit)
 
 #GENERATE IDRA CSOUND CSD
 for path in IDRA_dir_name_array:
   if path!=None:
-    os.system('cp ' + IDRA_core_path + '_livecode-settings.csd' + ' ' + path + IDRA_csd_ending_name)
+    shutil.copy2(IDRA_core_path + '_livecode-settings.csd', path + IDRA_csd_ending_name)
 
 #GENERATE IDRA FULL LIVECODING
 for path in IDRA_dir_name_array:
   if path!=None:
-    os.system('cp ' + IDRA_core_path + '_livecode-full.csd' + ' ' + path + IDRA_full_ending_name)
+    shutil.copy2(IDRA_core_path + '_livecode-full.csd', path + IDRA_full_ending_name)
 
 for path in IDRA_dir_name_array:
     if path!=None:
@@ -253,5 +251,5 @@ for path in IDRA_dir_name_array:
       IDRA_include_score = '#include "./' + path.rsplit('/', 1)[-1] + IDRA_score_ending_name + '"\n'
       IDRA_closing_cs = '\n\n\n\n</CsInstruments>\n<CsScore>\n</CsScore>\n</CsoundSynthesizer>'
       IDRA_ending = '\n' + IDRA_include_full + IDRA_include_score + IDRA_closing_cs
-      with open(path + IDRA_csd_ending_name, 'a') as f:
+      with open(path + IDRA_csd_ending_name, 'a', encoding='utf-8') as f:
         f.write(IDRA_ending)

@@ -3,7 +3,7 @@ import os
 
 def write_hello_to_file(file_path):
     # Open the file in write mode ('w')
-    with open(file_path, 'w') as file:
+    with open(file_path, 'w', encoding='utf-8') as file:
         # Write the text 'hello' to the file
         file.write("hello22reaper")
 

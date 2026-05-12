@@ -8,7 +8,7 @@ import ctcsound
 PLAY = False
 MIDI_NAME_JSON_path = '/Users/j/Documents/PROJECTs/CORDELIA/rpr/cordelia_releted/midi_name_freq.json'
 
-with open(MIDI_NAME_JSON_path, 'r') as file:
+with open(MIDI_NAME_JSON_path, 'r', encoding='utf-8') as file:
 	 MIDI_NAMEs = json.load(file)
 
 SCRIPT_path = Path(__file__)

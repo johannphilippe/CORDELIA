@@ -1,10 +1,15 @@
 import ctcsound
 import subprocess
-import re, os
+import shutil
+import re
+from pathlib import Path
 
 from constants.var import cordelia_date, cordelia_given_instr
 from constants.path import cordelia_score
 from src.read_config import Main_config
+
+# cordelia/csoundAPI/cs.py -> csoundAPI/ -> cordelia/
+_PKG = Path(__file__).resolve().parent.parent
 
 def remember(instrument_name):
 
@@ -23,12 +28,8 @@ def csound_clear_instrument(instrument_name):
 	return instr_setting
 
 def create_dir(directory):
-	# Check if the directory doesn't exist, then create it
-	if not os.path.exists(directory):
-		os.mkdir(directory)
-		print(f"Directory '{directory}' created successfully.")
-	else:
-		print(f"Directory '{directory}' already exists.")
+	Path(directory).mkdir(parents=True, exist_ok=True)
+	print(f"Directory '{directory}' ready.")
 
 # Extract the device name from the input string
 def extract_device(input_string):
@@ -36,22 +37,28 @@ def extract_device(input_string):
 	end_index = input_string.rfind(")") + 1
 	return input_string[start_index:end_index]
 
-# Return the real-time audio module: 'PortAudio' or 'CoreAudio' on macOS
+# Return the -+rtaudio= option line from option.orc, or None if absent
 def which_rtaudio():
 	match = '-+rtaudio='
-	with open('./csound_cordelia/option.orc') as f:
+	with open(_PKG / 'csound_cordelia' / 'option.orc', encoding='utf-8') as f:
 		for line in f:
 			line = line.strip()
 			if not line.startswith(';') and line.startswith(match):
 				return line
+	return None
 
 # Get the list of devices and their details
 def get_devices():
-	if which_rtaudio() != '-+rtaudio=jack':
-		output = subprocess.run(['/usr/local/bin/csound', f'{which_rtaudio()}', '--devices'], capture_output=True, text=True).stderr.strip()
-		devices = re.findall(r'adc.*|dac.*', output, flags=re.MULTILINE)
-		return [device for device in devices]
-	return []
+	rtaudio = which_rtaudio()
+	# No rtaudio option → let Csound pick the default; JACK needs no -adc/-dac flags
+	if rtaudio is None or rtaudio.lower() == '-+rtaudio=jack':
+		return []
+	csound = shutil.which('csound')
+	if csound is None:
+		raise RuntimeError("'csound' not found. Install Csound and ensure it is on your PATH.")
+	output = subprocess.run([csound, rtaudio, '--devices'], capture_output=True, text=True).stderr.strip()
+	devices = re.findall(r'adc.*|dac.*', output, flags=re.MULTILINE)
+	return list(devices)
 
 def process_line(line, converter, devices, options):
 	for device in devices:
@@ -73,19 +80,23 @@ def process_line(line, converter, devices, options):
 
 # Query devices and construct the appropriate OPTIONs for ADC or DAC
 def query_devices():
-	devices = get_devices()
-	if not devices:
-		print('Warning, no devices used - PROBABLY JACK USED?')
+	rtaudio = which_rtaudio()
 
+	# JACK manages its own port connections — no -adc/-dac flags needed.
+	# Returning [] lets option.orc have full control (e.g. ;-iadc stays off).
+	if rtaudio is None or rtaudio.lower() == '-+rtaudio=jack':
+		return []
+
+	devices = get_devices()
 	options = []
 
 	for converter in ['adc', 'dac']:
-		with open(f'./default/{converter}') as f:
+		with open(_PKG / 'default' / converter, encoding='utf-8') as f:
 			for line in f.readlines():
 				line_and_options = line.strip().split('--')
 				line = line_and_options[0]
 				if line and not line.startswith(';'):
-					match_found = False  # Flag to track if a match has been found
+					match_found = False
 					for device in devices:
 						if line in device:
 							match = re.match(fr'{converter}\d+', device)
@@ -97,22 +108,24 @@ def query_devices():
 										options.append(f'--{opt}')
 								options.append(string)
 								devices.remove(device)
-								match_found = True  # Set the flag to True if a match is found
+								match_found = True
 								break
 					if match_found:
-						break 
+						break
 
-	return options if options else ['-odac', '-iadc']
+	# Non-JACK fallback: output only (-odac); don't force input since most
+	# live-coding setups don't need ADC and forcing it can crash Csound.
+	return options if options else ['-odac']
 
 def init_csound():
 	OPTIONs = []
 
-	with open('./csound_cordelia/option.orc') as f:
+	with open(_PKG / 'csound_cordelia' / 'option.orc', encoding='utf-8') as f:
 		for line in f:
 			line = line.strip()
 			if line and not line.startswith(';'):
 				OPTIONs.append(line)
-	
+
 	OPTIONs.extend(query_devices())
 	OPTIONs.append(f'--nchnls={CORDELIA_CONFIG.nchnls}')
 
@@ -123,10 +136,10 @@ def init_csound():
 
 	SETTINGs = []
 	SETTINGs.append(f'ginchnls init {CORDELIA_CONFIG.csound_audio_array_count}')
-	with open('./csound_cordelia/setting.orc') as f:
+	with open(_PKG / 'csound_cordelia' / 'setting.orc', encoding='utf-8') as f:
 		SETTINGs.append(f.read())
 
-	with open('./csound_cordelia/include.orc') as f:
+	with open(_PKG / 'csound_cordelia' / 'include.orc', encoding='utf-8') as f:
 		SETTINGs.append(f.read())
 
 	csound_cordelia.compileOrcAsync('\n'.join(SETTINGs))

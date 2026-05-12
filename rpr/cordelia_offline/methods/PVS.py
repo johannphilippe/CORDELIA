@@ -7,14 +7,10 @@ from datetime import datetime
 import logging
 import soundfile as sf
 from _func import *
+import tempfile
 
-# Path to the directory containing the sox executable
-homebrew_directory = '/opt/homebrew/bin'
 
-# Modify the PATH environment variable
-os.environ['PATH'] = f"{homebrew_directory}:{os.environ['PATH']}"
-
-logging.basicConfig(filename='/Users/j/cordelia-script.log', level=logging.DEBUG, filemode='w')
+logging.basicConfig(filename=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cordelia-script.log'), level=logging.DEBUG, filemode='w')
 
 logging.info('Script execution path: %s', os.path.abspath(__file__))
 current_date = datetime.now()
@@ -47,7 +43,7 @@ with sf.SoundFile(input_file_wav) as f:
     channels = f.channels
 
 #output_tempdir = os.path.dirname(file)
-output_tempdir = '/Users/j/Documents/temp/'
+output_tempdir = tempfile.gettempdir()
 
 log_file = output_file_wav + '.log'
 
@@ -60,7 +56,7 @@ for f in mono_files:
 mono_files_code = ['"' + f + '"' for f in mono_files]
 orc_code = f'gSfiles[] fillarray {", ".join(mono_files_code)}\n'
 
-with open(input_file_orc, 'r') as f:
+with open(input_file_orc, 'r', encoding='utf-8') as f:
 	orc_code += f.read()
 	if 'gScsound_score' in orc_code:
 		output_file = output_file_wav + '.sco'
@@ -97,7 +93,7 @@ cs.readScore(score)
 cs.createMessageBuffer(True)
 cs.start()
 
-with open(log_file, 'a') as f:
+with open(log_file, 'a', encoding='utf-8') as f:
 	while cs.performKsmps() == 0:
 		msg = cs.firstMessage()
 		while msg:
@@ -111,13 +107,13 @@ del cs
 
 time.sleep(1/8)
 
-with open(output_file_wav + '--finished', 'w') as f:
+with open(output_file_wav + '--finished', 'w', encoding='utf-8') as f:
 	f.write('I EXIST')
 
 try:
 
 	# Remove the file
-	with open(input_file_orc, 'w') as f:
+	with open(input_file_orc, 'w', encoding='utf-8') as f:
 		f.write(orc_code)
 
 	if REMOVE_FILEs:

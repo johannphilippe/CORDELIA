@@ -1,6 +1,7 @@
 import os
+import tempfile
 
-output_tempdir = '/Users/j/Documents/PROJECTs/_temp'
+output_tempdir = tempfile.gettempdir()
 input_file_wav = '/Users/j/Desktop/dp-glued.wav'
 basename = os.path.splitext(os.path.basename(input_file_wav))[0]
 

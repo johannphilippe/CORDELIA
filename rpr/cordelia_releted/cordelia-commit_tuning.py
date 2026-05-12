@@ -2,16 +2,13 @@ import json, math, re, os, json, subprocess
 
 from pathlib import Path
 
-CORDELIA_DIR = '/Users/j/Documents/PROJECTs/CORDELIA'
-homebrew_directory = '/opt/homebrew/bin'
+# rpr/cordelia_releted/cordelia-commit_tuning.py -> cordelia_releted/ -> rpr/ -> project root
+CORDELIA_DIR = Path(__file__).resolve().parent.parent.parent
 
-# Modify the PATH environment variable
-os.environ['PATH'] = f"{homebrew_directory}:{os.environ['PATH']}"
-
-with open(f'{CORDELIA_DIR}/cordelia/config/SCALA.json') as f:
+with open(CORDELIA_DIR / 'cordelia' / 'config' / 'SCALA.json', encoding='utf-8') as f:
 	SCALA_JSON = json.load(f)
 
-with open(f'{CORDELIA_DIR}/rpr/cordelia_releted/midi_name_freq.json') as f:
+with open(CORDELIA_DIR / 'rpr' / 'cordelia_releted' / 'midi_name_freq.json', encoding='utf-8') as f:
 	MIDI_NAME_FREQ = json.load(f)
 
 def log(string):
@@ -36,7 +33,7 @@ class Tuning():
 		self.name = self.scala.stem
 
 		lines = []
-		with open(path) as f:
+		with open(path, encoding='utf-8') as f:
 			for line in f:
 				if not line.startswith('!'):
 					lines.append(line.strip())
@@ -179,7 +176,7 @@ def main():
 			#log(tuning.freq)
 			#log(tuning.edo12diff)
 
-			# with open('/Users/j/Desktop/1.txt', 'w') as f:
+			# with open('/Users/j/Desktop/1.txt', 'w', encoding='utf-8') as f:
 			# 	first_line = '# MIDI note / CC name map\n'
 			# 	f.write(first_line)
 			# 	for each in reversed(range(len(tuning.freq))):
@@ -216,14 +213,14 @@ def main():
 			
 			notation_dir = os.path.join(CORDELIA_DIR, '_SCALA/notation/')
 			intervals_json = os.path.join(notation_dir, '_intervals.json')
-			with open(intervals_json, 'r') as json_file:
+			with open(intervals_json, 'r', encoding='utf-8') as json_file:
 				intervals = json.load(json_file)
 
 			lilypond_output_path = os.path.join(notation_dir, f'{tuning.name}.ly')
 			pdf_output_path = os.path.join(notation_dir, f'{tuning.name}.pdf')
 			lilypond_init_path = os.path.join(notation_dir, '_init.ly')
 			lilyponds = []
-			with open(lilypond_init_path, 'r') as f:
+			with open(lilypond_init_path, 'r', encoding='utf-8') as f:
 				for i in range(base_midi_note, len(tuning.freq)):
 					if base_frequency_name_octave in tuning.edo12diff[i] and '0.0' in tuning.edo12diff[i]:
 						break
@@ -263,11 +260,11 @@ def main():
 
 
 			main_replace = '\n'.join(lilyponds).replace('[', '{').replace(']', '}')
-			with open(lilypond_init_path, 'r') as f:
+			with open(lilypond_init_path, 'r', encoding='utf-8') as f:
 				main_lilypond = f.read().replace('---MAIN---', main_replace)
 				main_lilypond = main_lilypond.replace('---LENGTH---', str(tuning.length))
 				main_lilypond = main_lilypond.replace('---NAME---', tuning.name.replace('_', ' ').strip().upper())
-				with open(lilypond_output_path, 'w') as f:
+				with open(lilypond_output_path, 'w', encoding='utf-8') as f:
 					f.write(main_lilypond)
 		if not os.path.exists(pdf_output_path):
 			command = ['lilypond', '-djob-count=10', '-o',  f'{notation_dir}', f'{lilypond_output_path}']

@@ -4,7 +4,7 @@ from pathlib import Path
 
 CORDELIA_DIR = '/Users/j/Documents/PROJECTs/CORDELIA'
 
-with open(f'{CORDELIA_DIR}/rpr/midi_name_freq.json') as f:
+with open(f'{CORDELIA_DIR}/rpr/midi_name_freq.json', encoding='utf-8') as f:
 	MIDI_NAME_FREQ = json.load(f)
 
 def log(string):
@@ -29,7 +29,7 @@ class Tuning():
 		self.name = self.scala.stem
 
 		lines = []
-		with open(path) as f:
+		with open(path, encoding='utf-8') as f:
 			for line in f:
 				if not line.startswith('!'):
 					lines.append(line.strip())
@@ -134,7 +134,7 @@ def main():
 			#log(tuning.freq)
 			#log(tuning.edo12diff)
 
-			# with open('/Users/j/Desktop/1.txt', 'w') as f:
+			# with open('/Users/j/Desktop/1.txt', 'w', encoding='utf-8') as f:
 			# 	first_line = '# MIDI note / CC name map\n'
 			# 	f.write(first_line)
 			# 	for each in reversed(range(len(tuning.freq))):

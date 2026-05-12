@@ -4,7 +4,7 @@ import json
 midi_json_path = '/Users/j/Documents/PROJECTs/CORDELIA/rpr/cordelia_releted/midi_name_freq.json'
 
 
-with open(midi_json_path, 'r') as file:
+with open(midi_json_path, 'r', encoding='utf-8') as file:
     midi_data = json.load(file)
 
 script_path = os.path.dirname(os.path.abspath(__file__))

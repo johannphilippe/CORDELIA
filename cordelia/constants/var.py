@@ -1,7 +1,9 @@
-import os
 import json
+from pathlib import Path
+from datetime import datetime
 
-from datetime import datetime 
+# cordelia/constants/var.py -> constants/ -> cordelia/
+_PKG = Path(__file__).resolve().parent.parent
 
 cordelia_init_code = []
 cordelia_compile = []
@@ -16,24 +18,19 @@ cordelia_date = datetime.today().strftime('%y%m%d-%H%M')
 memories = True
 
 def make_json(dictonary, directory):
-	for file_name in os.listdir(directory):
-		if file_name.endswith('.json'):
-			file_path = os.path.join(directory, file_name)
-			with open(file_path, 'r') as f:
-				key = file_path.split('/')[-1].split('.')[0]
-				dictonary[key] = json.load(f)
+	for file_path in Path(directory).iterdir():
+		if file_path.suffix == '.json':
+			with open(file_path, 'r', encoding='utf-8') as f:
+				dictonary[file_path.stem] = json.load(f)
 
 cordelia_json = {}
-json_dir = './config/'
-make_json(cordelia_json, json_dir)
+make_json(cordelia_json, _PKG / 'config')
 
 cordelia_alias = {}
 
-alias_path = './config/alias/alias.json'
-with open(alias_path, 'r') as f:
+with open(_PKG / 'config' / 'alias' / 'alias.json', 'r', encoding='utf-8') as f:
 	cordelia_alias['alias'] = json.load(f)
 
-complex_path = './config/alias/complex.json'
-with open(complex_path, 'r') as f:
+with open(_PKG / 'config' / 'alias' / 'complex.json', 'r', encoding='utf-8') as f:
 	cordelia_alias['complex'] = json.load(f)
 

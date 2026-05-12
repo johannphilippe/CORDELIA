@@ -8,7 +8,7 @@
 ;--limiter
 ;--port=10000
 ;--format=float
--3
+;-3     ; legacy 32-bit float flag — conflicts with JACK; let the backend decide
 
 ;-D
 ;MIDI is HERE
@@ -33,10 +33,10 @@
 ;--realtime
 
 ;--realtime
--+rtaudio=pa_cb
-;-+rtaudio=PortAudio
-;-+rtaudio=jack
-;-+rtaudio=CoreAudio
+;-+rtaudio=pa_cb       ; macOS PortAudio (callback)
+;-+rtaudio=PortAudio   ; macOS PortAudio (blocking)
+-+rtaudio=jack         ; Linux PipeWire-JACK / JACK
+;-+rtaudio=CoreAudio   ; macOS CoreAudio (auhal)
 
 ;-+rtaudio=auhal
 

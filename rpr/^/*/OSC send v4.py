@@ -3,7 +3,7 @@ reload(sys)
 sys.setdefaultencoding('utf8')
 
 list_instr = []
-with open('/Users/j/Documents/PROJECTs/IDRA/_list_instr.txt') as name:
+with open('/Users/j/Documents/PROJECTs/IDRA/_list_instr.txt', encoding='utf-8') as name:
   list_instr = name.readlines()
 
 

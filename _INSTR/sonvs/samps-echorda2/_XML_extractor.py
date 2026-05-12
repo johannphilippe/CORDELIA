@@ -4,7 +4,7 @@ import json
 midi_json_path = '/Users/j/Documents/PROJECTs/CORDELIA/rpr/cordelia_releted/midi_name_freq.json'
 
 
-with open(midi_json_path, 'r') as file:
+with open(midi_json_path, 'r', encoding='utf-8') as file:
     midi_data = json.load(file)
 
 def extract_if_statements(xml_string):
@@ -57,7 +57,7 @@ def extract_if_statements(xml_string):
 
 path = '/Users/j/Documents/PROJECTs/CORDELIA/_INSTR/sonvs/samps-echorda2/_ECHORDA_2.dspreset'
 
-with open(path, 'r') as f:
+with open(path, 'r', encoding='utf-8') as f:
 	xml_data = f.read()
 ifs_list = extract_if_statements(xml_data)
 for if_list in ifs_list:

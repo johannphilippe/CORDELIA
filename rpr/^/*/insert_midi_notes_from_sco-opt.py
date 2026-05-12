@@ -45,7 +45,7 @@ def main(file_path):
 		names, cent_diffs, freqs = get_tuning_list(take)
 		first_time = None
 
-		with open(file_path, 'r') as file:
+		with open(file_path, 'r', encoding='utf-8') as file:
 			lines = file.read().splitlines()
 
 			for line in lines:

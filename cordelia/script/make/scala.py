@@ -1,43 +1,34 @@
-import os
 import re
 import json
+from pathlib import Path
 
 def find_duplicate_files(directory):
 	file_dict = {}
 
-	for root, _, files in os.walk(directory):
-		for filename in files:
-			basename, extension = os.path.splitext(filename)
-			if filename != '.DS_Store' and extension == '.scl':
-				file_path = os.path.join(root, basename)
-				if basename in file_dict:
-					file_dict[basename].append(file_path)
-				else:
-					file_dict[basename] = [file_path]
+	for p in Path(directory).rglob('*.scl'):
+		if p.stem in file_dict:
+			file_dict[p.stem].append(p)
+		else:
+			file_dict[p.stem] = [p]
 
-	duplicate_files = {filename: paths for filename, paths in file_dict.items() if len(paths) > 1}
+	duplicates = {stem: paths for stem, paths in file_dict.items() if len(paths) > 1}
 
-	if not duplicate_files:
+	if not duplicates:
 		print("No duplicate files found.")
 		return True
 	else:
 		print("Duplicate files found:")
-		for filename, paths in duplicate_files.items():
-			print(f"File '{filename}' is duplicated at:")
+		for stem, paths in duplicates.items():
+			print(f"File '{stem}' is duplicated at:")
 			for path in paths:
 				print(f"  {path}")
 		return False
 
 def find_nonstandard_names(directory):
-	for root, _, files in os.walk(directory):
-		for filename in files:
-			_, extension = os.path.splitext(filename)
-			if filename != '.DS_Store' and extension == '.scl':
-				file_path = os.path.join(root, filename)
-				if re.search(r'\s', filename):
-					print(file_path)
-					return False
-					#rename_file(file_path, os.path.join(root, filename.replace(' ', '_')))
+	for p in Path(directory).rglob('*.scl'):
+		if re.search(r'\s', p.name):
+			print(p)
+			return False
 	return True
 
 def round_large_integer(number):
@@ -52,62 +43,47 @@ def round_large_integer(number):
 def process_scala(directory, json_file):
 	scala = {}
 
-	for root, _, files in os.walk(directory):
-		for filename in files:
-			basename, extension = os.path.splitext(filename)
-			if extension == '.scl':
-				file_path = os.path.join(root, filename)
-				with open(file_path, 'r', encoding='latin1') as f:
-					lines = [line.strip() for line in f.readlines() if not line.strip().startswith('!')]
+	for p in Path(directory).rglob('*.scl'):
+		with open(p, 'r', encoding='latin1') as f:
+			lines = [line.strip() for line in f if not line.strip().startswith('!')]
 
-				description = lines[0] if lines[0] != '' else None
-				degrees = lines[1].split()[0]
+		description = lines[0] if lines[0] != '' else None
+		degrees = lines[1].split()[0]
 
-				tuning_value = []
-				for value in lines[2:]:
-					value = value.split('!')[0]
+		tuning_value = []
+		for value in lines[2:]:
+			value = value.split('!')[0]
 
-					if '(' in value:
-						res = value
-					elif '/' in value:
-						numbers = []
+			if '(' in value:
+				res = value
+			elif '/' in value:
+				components = [str(round_large_integer(c)) for c in value.split('/')]
+				res = '/'.join(components)
+			else:
+				res = str(2 ** (float(value.split()[0]) / 1200))
 
-						# Split the value into components based on '/'
-						components = value.split('/')
+			tuning_value.append(str(res))
 
-						# Iterate through each component and handle rounding if necessary
-						for component in components:
-							component = round_large_integer(component)
-							numbers.append(str(component))
+		interval = tuning_value[-1]
 
-						# Join the modified components back together using '/'
-						res = '/'.join(numbers)
-						
-					else:
-						res = str(2 ** (float(value.split()[0]) / 1200))
+		if degrees != str(len(tuning_value)):
+			print('WARNING --- degrees are different from the tuning values')
 
-					tuning_value.append(str(res))
+		base_val = '1'
+		basefreq = 'A4'
+		basekey = '69'
 
-				interval = tuning_value[-1]
+		ftgen_string = f'gi{p.stem} ftgen 0, 0, 0, -2, {degrees}, {interval}, {basefreq}, {basekey}, {base_val}, {", ".join(tuning_value)}'
+		scala[p.stem] = {
+			'path': str(p),
+			'description': description,
+			'default_ftgen': ftgen_string,
+			'degrees': degrees,
+			'interval': interval,
+			'tuning_values': ", ".join(tuning_value)
+		}
 
-				if degrees != str(len(tuning_value)):
-					print('WARNING --- degrees are different from the tuning values')
-
-				base_val = '1'
-				basefreq = 'A4'
-				basekey = '69'
-
-				ftgen_string = f'gi{basename} ftgen 0, 0, 0, -2, {degrees}, {interval}, {basefreq}, {basekey}, {base_val}, {", ".join(tuning_value)}'
-				scala[basename] = {
-					'path': file_path,
-					'description': description,
-					'default_ftgen': ftgen_string,
-					'degrees': degrees,
-					'interval': interval,
-					'tuning_values': ", ".join(tuning_value)
-				}
-
-	with open(json_file, 'w') as f:
+	with open(json_file, 'w', encoding='utf-8') as f:
 		json.dump(scala, f, indent=4)
 	return True
 

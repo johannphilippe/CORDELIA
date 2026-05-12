@@ -1,11 +1,11 @@
 import json
-import os
 import re
 import soundfile as sf
 
 import librosa
 import numpy as np
 from pathlib import Path
+
 '''
 This script make principally the .JSON for the instrument
 '''
@@ -13,6 +13,9 @@ This script make principally the .JSON for the instrument
 HARD_RESET = False
 HARD_RESET_with_anal = False
 
+# cordelia/script/make/instr.py -> make/ -> script/ -> cordelia/ -> project root
+_PKG  = Path(__file__).resolve().parent.parent.parent
+_ROOT = _PKG.parent
 
 class Input_file:
     def __init__(self, path):
@@ -23,88 +26,68 @@ class Input_file:
 
 audio_extensions = ['.flac', '.wav']
 
-default_sonvs_dir = './default/sonvs'
+default_sonvs_dir = _PKG / 'default' / 'sonvs'
 default_sonvs = {}
-for file_name in os.listdir(default_sonvs_dir):
-	if file_name.endswith('.orc'):
-		file_path = os.path.join(default_sonvs_dir, file_name)
-		key = file_path.split('/')[-1].split('.')[0]
-		default_sonvs[key] = file_path
+for _p in default_sonvs_dir.iterdir():
+	if _p.suffix == '.orc':
+		default_sonvs[_p.stem] = str(_p.relative_to(_ROOT))
 
 def extract_global_vars(path, name):
-	content = open(path).read()
+	content = open(path, encoding='utf-8').read()
 	gk_vars = list(set(re.findall(r'\bgk' + name + r'\w+', content)))
 	gi_vars = list(set(re.findall(r'\bgi' + name + r'\w+', content)))
 	return gk_vars + gi_vars
 
 def process_instr(directory, json_file):
-	# Processing 'instr' type files
-	for root, _, files in os.walk(directory):
-		for file in files:
-			basename, extension = os.path.splitext(file)
-			if extension == '.orc':
-				file_path = os.path.join(root, file)
-
-				if basename not in json_file:
-					json_file[basename] = {
-						'type': 'instr',
-						'path': file_path,
-						'global_var': extract_global_vars(file_path, basename)
-					}
-			elif extension == '.py':
-				file_path = os.path.join(root, file)
-
-				if basename not in json_file:
-					json_file[basename] = {
-						'type': 'scripted_instr',
-						'path': file_path,
-						'extension': extension
-					}				
+	for p in Path(directory).rglob('*'):
+		if p.suffix == '.orc' and p.stem not in json_file:
+			json_file[p.stem] = {
+				'type': 'instr',
+				'path': str(p.relative_to(_ROOT)),
+				'global_var': extract_global_vars(p, p.stem)
+			}
+		elif p.suffix == '.py' and p.stem not in json_file:
+			json_file[p.stem] = {
+				'type': 'scripted_instr',
+				'path': str(p.relative_to(_ROOT)),
+				'extension': p.suffix
+			}
 
 def process_hybrid(directory, json_file):
-	# Processing 'hybrid' type files
-	for root, _, files in os.walk(directory):
-		for file in files:
-			basename, extension = os.path.splitext(file)
-			if extension == '.orc':
-				file_path = os.path.join(root, file)
+	for p in Path(directory).rglob('*.orc'):
+		if p.stem not in json_file:
+			first_lines = open(p, encoding='utf-8').readlines()[:5]
+			keyword = ';REQUIRE'
+			required_instr = []
 
-				if basename not in json_file:
-					first_lines = open(file_path).readlines()[:5]
-					keyword = ';REQUIRE'
-					required_instr = []
+			for l in first_lines:
+				if l.startswith(keyword):
+					required_instr.extend(l.replace(keyword, '').strip().split(','))
 
-					for l in first_lines:
-						if l.startswith(keyword):
-							line = l.replace(keyword, '').strip()
-							required_instr.extend(line.split(','))
-
-					json_file[basename] = {
-						'type': 'hybrid',
-						'path': file_path,
-						'required': required_instr,
-						'global_var': extract_global_vars(file_path, basename)
-					}
+			json_file[p.stem] = {
+				'type': 'hybrid',
+				'path': str(p.relative_to(_ROOT)),
+				'required': required_instr,
+				'global_var': extract_global_vars(p, p.stem)
+			}
 
 def sonvs_anal(directory):
-	json_file = './config/sonvs_anal.json'
+	json_file = _PKG / 'config' / 'sonvs_anal.json'
 
-	if HARD_RESET_with_anal or not os.path.exists(json_file):
+	if HARD_RESET_with_anal or not json_file.exists():
 		anals = {}
 	else:
-		with open(json_file, 'r') as f:
+		with open(json_file, 'r', encoding='utf-8') as f:
 			anals = json.load(f)
 
-	for file in os.listdir(directory):
-		file_path = os.path.join(directory, file)
-		if os.path.isfile(file_path):
-			_, extension = os.path.splitext(file)
-			if extension in audio_extensions and file_path not in anals:
-				audio, sr = librosa.load(file_path)
-				f0 = librosa.yin(audio, fmin=25, fmax=3500)
-				main_f0 = np.median(f0)
-				anals[file_path] = {'pitch': str(main_f0)}
-	with open(json_file, 'w') as f:
+	for p in Path(directory).iterdir():
+		rel = str(p.relative_to(_ROOT))
+		if p.is_file() and p.suffix in audio_extensions and rel not in anals:
+			audio, sr = librosa.load(p)
+			f0 = librosa.yin(audio, fmin=25, fmax=3500)
+			main_f0 = np.median(f0)
+			anals[rel] = {'pitch': str(main_f0)}
+	with open(json_file, 'w', encoding='utf-8') as f:
 		json.dump(anals, f, indent=4)
 	return anals
 		
@@ -116,46 +99,34 @@ def process_sonvs(directory, json_file):
 
 	anals_json = sonvs_anal(directory)
 
-	for file in os.listdir(directory):
-		file_path = os.path.join(directory, file)
-		
-		if os.path.isfile(file_path):
-
+	for p in Path(directory).iterdir():
+		if p.is_file():
 			for variant in default_sonvs.keys():
-				basename, extension = os.path.splitext(file)
+				basename = p.stem
 				if variant != '_':
-					basename += variant		
+					basename += variant
 
-				if extension in audio_extensions and basename not in json_file:
+				if p.suffix in audio_extensions and basename not in json_file:
 					print(f'{basename} is added.')
-
-
-
+					rel = str(p.relative_to(_ROOT))
 					json_file[basename] = {
 						'type': 'sonvs',
-						'channels': get_audio_channels(file_path),
-						'path': [file_path],
-						'pitch': anals_json[file_path]['pitch'],
+						'channels': get_audio_channels(p),
+						'path': [rel],
+						'pitch': anals_json[rel]['pitch'],
 						'orc': default_sonvs[variant]
 					}
 		else:
-
-			audio_files = []
-			
-			for f in os.listdir(file_path):
-				_, extension = os.path.splitext(f)
-				
-				if extension in audio_extensions:
-					audio_files.append(os.path.join(file_path, f))
+			audio_files = [str(f.relative_to(_ROOT)) for f in p.iterdir() if f.suffix in audio_extensions]
 
 			if audio_files:
 				for variant in default_sonvs.keys():
-					basename = file
+					basename = p.name
 					if variant != '_':
-						basename += variant		
+						basename += variant
 					json_file[basename] = {
 						'type': 'dir_sonvs',
-						'channels': get_audio_channels(audio_files[0]),
+						'channels': get_audio_channels(str(_ROOT / audio_files[0])),
 						'path': audio_files,
 						'pitch': "440",
 						'orc': default_sonvs[variant]
@@ -163,29 +134,22 @@ def process_sonvs(directory, json_file):
 
 
 def make(directory, json_file):
-	# Load existing instruments data from JSON file or initialize an empty dictionary
-	if HARD_RESET or not os.path.exists(json_file):
+	json_file = Path(json_file)
+	if HARD_RESET or not json_file.exists():
 		instr_json = {}
 	else:
-		with open(json_file, 'r') as f:
+		with open(json_file, 'r', encoding='utf-8') as f:
 			instr_json = json.load(f)
 
-	# Process different types of files
-	for dirname in os.listdir(directory):
-		if dirname == 'instr':
-			local_directory = os.path.join(directory, dirname)
-			process_instr(local_directory, instr_json)
+	for subdir in Path(directory).iterdir():
+		if subdir.name == 'instr':
+			process_instr(subdir, instr_json)
+		elif subdir.name == 'hybrid':
+			process_hybrid(subdir, instr_json)
+		elif subdir.name == 'sonvs':
+			process_sonvs(subdir, instr_json)
 
-		elif dirname == 'hybrid':
-			local_directory = os.path.join(directory, dirname)
-			process_hybrid(local_directory, instr_json)
-
-		elif dirname == 'sonvs':
-			local_directory = os.path.join(directory, dirname)
-			process_sonvs(local_directory, instr_json)
-
-	# Sort instruments dictionary and write to JSON file
 	instr_json = dict(sorted(instr_json.items()))
-	with open(json_file, 'w') as f:
+	with open(json_file, 'w', encoding='utf-8') as f:
 		json.dump(instr_json, f, indent=4)
 

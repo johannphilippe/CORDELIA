@@ -1,9 +1,12 @@
 import numpy as np
 import queue
 from pathlib import Path
-import os, sys
+import sys
 import threading
 import argparse
+
+# cordelia/cordelia.py -> cordelia/
+_PKG = Path(__file__).resolve().parent
 #import pdb; pdb.set_trace()
 from rich.console import Console
 from rich.panel import Panel
@@ -156,25 +159,25 @@ def main():
 		input_ext = Path(input_score).suffix[1:]
 		input_dir = Path(input_score).parent
 
-		output_score = os.path.join(input_dir, input_name + '-cordelia' + '.orc')
+		output_score = input_dir / (input_name + '-cordelia.orc')
 
-		with open(input_score, 'r') as f:
+		with open(input_score, 'r', encoding='utf-8') as f:
 			code = f.read()
 
 		instrs = handler_reaper_1(code)
 
-		with open(output_score, 'w') as output:	
+		with open(output_score, 'w', encoding='utf-8') as output:
 
-			with open('./csound_cordelia/setting.orc') as f:
+			with open(_PKG / 'csound_cordelia' / 'setting.orc', encoding='utf-8') as f:
 				output.write(f.read())
 				output.write('\n;' + ('*'*32) + '\n')
 
-			with open('./csound_cordelia/include.orc', 'r') as f:
+			with open(_PKG / 'csound_cordelia' / 'include.orc', 'r', encoding='utf-8') as f:
 				lines = f.readlines()
 				for line in lines:
 					parts = line.split('"')
 					inside_quotes = parts[1::2][0]
-					with open(inside_quotes, 'r') as f:
+					with open(inside_quotes, 'r', encoding='utf-8') as f:
 						output.write(f.read())
 						output.write('\n;' + ('*'*32) + '\n')
 

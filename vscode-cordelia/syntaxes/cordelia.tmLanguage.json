@@ -1,0 +1,134 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Cordelia",
+  "scopeName": "source.cordelia",
+  "fileTypes": ["cor"],
+  "patterns": [
+    { "include": "#block-comment" },
+    { "include": "#line-comment" },
+    { "include": "#strings" },
+    { "include": "#macros" },
+    { "include": "#instrument-definition" },
+    { "include": "#opcode-definition" },
+    { "include": "#instrument-end" },
+    { "include": "#headers" },
+    { "include": "#conditionals" },
+    { "include": "#loops" },
+    { "include": "#score-statements" },
+    { "include": "#labels" },
+    { "include": "#variables" },
+    { "include": "#numbers" },
+    { "include": "#operators" }
+  ],
+  "repository": {
+    "block-comment": {
+      "name": "comment.block.cordelia",
+      "begin": "/\\*",
+      "end": "\\*/"
+    },
+    "line-comment": {
+      "patterns": [
+        {
+          "name": "comment.line.semicolon.cordelia",
+          "match": ";.*$"
+        },
+        {
+          "name": "comment.line.double-slash.cordelia",
+          "match": "//.*$"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.cordelia",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.cordelia",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "macros": {
+      "patterns": [
+        {
+          "match": "(^\\s*#(?:include|define|undef|ifdef|ifndef|else|end))(?:\\s+(\\w+))?",
+          "captures": {
+            "1": { "name": "keyword.preprocessor.cordelia" },
+            "2": { "name": "entity.name.function.preprocessor.cordelia" }
+          }
+        },
+        {
+          "name": "entity.name.function.preprocessor.cordelia",
+          "match": "\\$\\w+\\.?"
+        }
+      ]
+    },
+    "instrument-definition": {
+      "match": "(\\binstr\\b)\\s+([+_a-zA-Z]\\w*(?:\\s*,\\s*[+_a-zA-Z]\\w*)*|\\d+(?:\\s*,\\s*\\d+)*)",
+      "captures": {
+        "1": { "name": "keyword.other.instrument.cordelia" },
+        "2": { "name": "entity.name.function.cordelia" }
+      }
+    },
+    "opcode-definition": {
+      "match": "(\\bopcode\\b)\\s+(\\S+)",
+      "captures": {
+        "1": { "name": "keyword.other.instrument.cordelia" },
+        "2": { "name": "entity.name.function.cordelia" }
+      }
+    },
+    "instrument-end": {
+      "name": "keyword.other.instrument.cordelia",
+      "match": "\\b(endin|endop)\\b"
+    },
+    "headers": {
+      "name": "keyword.other.header.cordelia",
+      "match": "\\b(sr|kr|ksmps|nchnls|0dbfs|A4)\\b"
+    },
+    "conditionals": {
+      "name": "keyword.control.conditional.cordelia",
+      "match": "\\b(cggoto|cigoto|cingoto|ckgoto|cngoto|cnkgoto|else|elseif|endif|goto|if|igoto|kgoto|rigoto|then|tigoto|timout|reinit)\\b"
+    },
+    "loops": {
+      "name": "keyword.control.loop.cordelia",
+      "match": "\\b(loop_ge|loop_gt|loop_le|loop_lt|until|while|do|od)\\b"
+    },
+    "score-statements": {
+      "patterns": [
+        {
+          "name": "keyword.other.score.cordelia",
+          "match": "^\\s*f\\s*\\d+"
+        },
+        {
+          "name": "keyword.other.score.cordelia",
+          "match": "^\\s*[iq]\\s*(?:\\.\\s*|\\d+)"
+        },
+        {
+          "name": "keyword.other.score.cordelia",
+          "match": "^\\s*[iq]\\s*\"[_a-zA-Z]\\w*\""
+        },
+        {
+          "name": "keyword.other.score.cordelia",
+          "match": "^\\s*[abemnrstvxy]\\b"
+        }
+      ]
+    },
+    "labels": {
+      "name": "entity.name.label.cordelia",
+      "match": "^\\s*\\w+(?=:)"
+    },
+    "variables": {
+      "name": "variable.other.cordelia",
+      "match": "\\bg?[akipSfw]\\w+\\b"
+    },
+    "numbers": {
+      "name": "constant.numeric.cordelia",
+      "match": "\\b\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\b|\\.\\d+(?:[eE][+-]?\\d+)?\\b"
+    },
+    "operators": {
+      "name": "keyword.operator.cordelia",
+      "match": "<<|>>|<=|>=|==|!=|\\|\\||&&|[<>|&?:/%^~]|[*+()-]"
+    }
+  }
+}

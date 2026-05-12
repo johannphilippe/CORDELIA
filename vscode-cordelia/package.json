@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json.schemastore.org/package",
+  "name": "cordelia",
+  "displayName": "Cordelia",
+  "description": "Cordelia live-coding language support: syntax highlighting and Ctrl+Enter to evaluate",
+  "version": "0.1.3",
+  "publisher": "cordelia-live-coding",
+  "license": "MIT",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./src/extension.js",
+  "contributes": {
+    "languages": [
+      {
+        "id": "cordelia",
+        "aliases": [
+          "Cordelia",
+          "cor"
+        ],
+        "extensions": [
+          ".cor"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "cordelia",
+        "scopeName": "source.cordelia",
+        "path": "./syntaxes/cordelia.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "cordelia.sendDocument",
+        "title": "Cordelia: Send Document to Engine"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "cordelia.sendDocument",
+        "key": "ctrl+enter",
+        "when": "editorTextFocus && cordelia:fileActive"
+      }
+    ]
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^2.32.0"
+  }
+}

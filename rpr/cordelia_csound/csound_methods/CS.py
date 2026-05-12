@@ -1,18 +1,14 @@
 import os, sys
+import shutil
 import time
 import re
 import soundfile as sf
 from datetime import datetime
 import logging
 import subprocess
+import tempfile
 
-# Path to the directory containing the sox executable
-homebrew_directory = '/opt/homebrew/bin'
-
-# Modify the PATH environment variable
-os.environ['PATH'] = f"{homebrew_directory}:{os.environ['PATH']}"
-
-logging.basicConfig(filename='/Users/j/cordelia-script.log', level=logging.DEBUG, filemode='w')
+logging.basicConfig(filename=os.path.join(os.path.dirname(os.path.abspath(__file__)), 'cordelia-script.log'), level=logging.DEBUG, filemode='w')
 
 logging.info('Script execution path: %s', os.path.abspath(__file__))
 current_date = datetime.now()
@@ -39,14 +35,14 @@ with sf.SoundFile(input_file_wav) as f:
     channels = f.channels
 
 #output_tempdir = os.path.dirname(file)
-output_tempdir = '/Users/j/Documents/temp/'
+output_tempdir = tempfile.gettempdir()
 csound_sco_path = os.path.join(output_tempdir, f'{basename}.sco')
 csound_orc_path = os.path.join(output_tempdir, f'{basename}-processed.orc')
 log_file = output_file_wav + '.log'
 
 orc_code = f'gSfile init "{input_file_wav}"\n'
 
-with open(input_file_orc, 'r') as f:
+with open(input_file_orc, 'r', encoding='utf-8') as f:
 	orc_code += f.read()
 	sco_python_code = extract_score_data(orc_code)
 
@@ -64,9 +60,9 @@ if sco_python_code is not None:
 
 score.append('e')
 
-with open(csound_sco_path, 'w') as f:
+with open(csound_sco_path, 'w', encoding='utf-8') as f:
 	f.write('\n'.join(score))
-with open(csound_orc_path, 'w') as f:
+with open(csound_orc_path, 'w', encoding='utf-8') as f:
 	f.write(orc_code)
 
 #csound [flags] [orchname] [scorename]
@@ -77,8 +73,12 @@ CSOUND_FLAGs = [
 	'--0dbfs=1',
 ]
 
+_csound = shutil.which('csound')
+if _csound is None:
+	raise RuntimeError("'csound' not found. Install Csound and ensure it is on your PATH.")
+
 csound_command = [
-    '/usr/local/bin/csound',
+    _csound,
     *CSOUND_FLAGs,
     csound_orc_path,
     csound_sco_path,
@@ -97,12 +97,12 @@ except FileNotFoundError:
 
 time.sleep(1/8)
 
-with open(output_file_wav + '--finished', 'w') as f:
+with open(output_file_wav + '--finished', 'w', encoding='utf-8') as f:
 	f.write('I EXIST')
 
 try:
 	# Remove the file
-	with open(input_file_orc, 'w') as f:
+	with open(input_file_orc, 'w', encoding='utf-8') as f:
 		f.write(orc_code)
 	if REMOVE_FILEs:
 		os.remove(input_file_wav)

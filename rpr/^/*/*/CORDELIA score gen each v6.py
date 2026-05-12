@@ -1,4 +1,5 @@
-import struct, re, sys, os
+import struct, re, sys, os, shutil
+from pathlib import Path
 reload(sys)
 sys.setdefaultencoding('utf8')
 
@@ -26,13 +27,10 @@ CORDELIA_csd_ending_name = '.csd'
 CORDELIA_project_dir = reaper_project_path + reaper_project_name + '_instrs/'
 #RPR_ShowConsoleMsg(CORDELIA_project_dir + "\n")
 
-if os.path.isdir(CORDELIA_project_dir):
-  #RPR_ShowConsoleMsg(CORDELIA_project_dir + "\n")
-  os.system('rm -r ' + CORDELIA_project_dir)
+shutil.rmtree(CORDELIA_project_dir, ignore_errors=True)
 
-create_dir_command = 'mkdir ' + CORDELIA_project_dir
-os.system(create_dir_command)
-os.system('cp "' + CORDELIA_path + '_scripts/_cmd/command_instr-dir.txt' + '" "' + CORDELIA_project_dir.rsplit('/', 1)[0] + '/__' + CORDELIA_project_dir.rsplit('/', 1)[-1] + '.command' + '"')
+Path(CORDELIA_project_dir).mkdir(parents=True, exist_ok=True)
+shutil.copy2(CORDELIA_path + '_scripts/_cmd/command_instr-dir.txt', CORDELIA_project_dir.rsplit('/', 1)[0] + '/__' + CORDELIA_project_dir.rsplit('/', 1)[-1] + '.command')
 
 #GET TIME POSITION
 time_sel_isset, time_sel_isloop, time_sel_start, time_sel_end, time_sel_allowautoseek = RPR_GetSet_LoopTimeRange(0, 0, 0, 0, 0)          
@@ -65,7 +63,7 @@ def gen_dir_for_each_track():
       dir_track_name = str(int(reaper_parent_track_num)) + '-' + reaper_parent_track_name
 
       #CREATE DIRECTORY WITH THE TRACK NAME
-      os.system('mkdir ' + CORDELIA_project_dir + dir_track_name)
+      Path(CORDELIA_project_dir + dir_track_name).mkdir(parents=True, exist_ok=True)
       track_dir = CORDELIA_project_dir + dir_track_name + '/'
       #RPR_ShowConsoleMsg(track_dir + "\n")
 
@@ -79,7 +77,7 @@ gen_dir_for_each_track()
 
 for path in CORDELIA_dir_name_array:
   if path!=None:
-    os.system('cp "' + CORDELIA_path + '_scripts/_cmd/command_instr.txt' + '" "' + path.rsplit('/', 1)[0] + '/__' + path.rsplit('/', 1)[-1] + '.sh' + '"')
+    shutil.copy2(CORDELIA_path + '_scripts/_cmd/command_instr.txt', path.rsplit('/', 1)[0] + '/__' + path.rsplit('/', 1)[-1] + '.sh')
 
 #CREATE AN ARRAY WITH ALL THE MEDIA ITEMS
 CORDELIA_instr_num_array = []
@@ -156,7 +154,7 @@ def csound_score():
                 icps = 'rpredo(' + root + comma + edo + comma + str(degree) + ')'
 
                 OSC_schedule = 'evaMIDI "' + reaper_track_parent_name + '", ' + str(note_start) + comma + str(note_dur-item_position) + comma + str(note_vel) + comma + note_env + comma + icps + '\n'
-                with open(CORDELIA_track_dir, 'a') as f:
+                with open(CORDELIA_track_dir, 'a', encoding='utf-8') as f:
                   f.write(OSC_schedule)
               elif track_his_name.startswith('csdir'):
 
@@ -166,11 +164,11 @@ def csound_score():
                   division = 3
 
                 OSC_schedule += 'evaMIDImode "' + reaper_track_parent_name + '", ' + str(note_start) + comma + str(note_dur-item_position) + comma + str(note_vel) + comma + note_env + comma + str(division) + comma + str(2) + comma + str(note_pitch) + '\n'
-                with open(CORDELIA_track_dir, 'a') as f:
+                with open(CORDELIA_track_dir, 'a', encoding='utf-8') as f:
                   f.write(OSC_schedule)
               else:
                 OSC_schedule = 'evaMIDI "' + reaper_track_parent_name + '", ' + str(note_start) + comma + str(note_dur-item_position) + comma + str(note_vel) + comma + note_env + comma + 'mtof:i(' + str(note_pitch) + ')\n'
-                with open(CORDELIA_track_dir, 'a') as f:
+                with open(CORDELIA_track_dir, 'a', encoding='utf-8') as f:
                   f.write(OSC_schedule)
           else:
             #---
@@ -198,10 +196,10 @@ def csound_score():
 
             CORDELIA_instr = '\tinstr\t' + CORDELIA_instr_num + '\n' + CORDELIA_string_track_num + CORDELIA_int_track_num + '\n' + CORDELIA_instr_content + '\n' + '\tendin\n'
             
-            with open(CORDELIA_track_dir, 'a') as f:
+            with open(CORDELIA_track_dir, 'a', encoding='utf-8') as f:
                 f.write(CORDELIA_instr)
 
-            with open(CORDELIA_track_dir, 'a') as f:
+            with open(CORDELIA_track_dir, 'a', encoding='utf-8') as f:
                 f.write(CORDELIA_schedule)
             
             indx += 1
@@ -249,10 +247,10 @@ def csound_score():
               if path!=None:
                 temp_path = path + CORDELIA_score_ending_name
 
-                with open(temp_path, 'a') as f:
+                with open(temp_path, 'a', encoding='utf-8') as f:
                     f.write(CORDELIA_instr)
 
-                with open(temp_path, 'a') as f:
+                with open(temp_path, 'a', encoding='utf-8') as f:
                     f.write(CORDELIA_schedule)
             
             indx += 1
@@ -265,18 +263,18 @@ CORDELIA_exit = 'instr 700\nevent("e", 0, 1)\nendin\nschedule 700, '+ str(CORDEL
 for path in CORDELIA_dir_name_array:
   if path!=None:
     temp_path = path + CORDELIA_score_ending_name
-    with open(temp_path, 'a') as f:
+    with open(temp_path, 'a', encoding='utf-8') as f:
       f.write(CORDELIA_exit)
 
 #GENERATE CORDELIA CSOUND CSD
 for path in CORDELIA_dir_name_array:
   if path!=None:
-    os.system('cp ' + CORDELIA_core_path + 'cordelia-setting.csd' + ' ' + path + CORDELIA_csd_ending_name)
+    shutil.copy2(CORDELIA_core_path + 'cordelia-setting.csd', path + CORDELIA_csd_ending_name)
 
 #GENERATE CORDELIA FULL LIVECODING
 for path in CORDELIA_dir_name_array:
   if path!=None:
-    os.system('cp ' + CORDELIA_core_path + 'cordelia-full.csd' + ' ' + path + CORDELIA_full_ending_name)
+    shutil.copy2(CORDELIA_core_path + 'cordelia-full.csd', path + CORDELIA_full_ending_name)
 
 for path in CORDELIA_dir_name_array:
     if path!=None:
@@ -284,5 +282,5 @@ for path in CORDELIA_dir_name_array:
       CORDELIA_include_score = '#include "./' + path.rsplit('/', 1)[-1] + CORDELIA_score_ending_name + '"\n'
       CORDELIA_closing_cs = '\n\n\n\n</CsInstruments>\n<CsScore>\n</CsScore>\n</CsoundSynthesizer>'
       CORDELIA_ending = '\n' + CORDELIA_include_full + CORDELIA_include_score + CORDELIA_closing_cs
-      with open(path + CORDELIA_csd_ending_name, 'a') as f:
+      with open(path + CORDELIA_csd_ending_name, 'a', encoding='utf-8') as f:
         f.write(CORDELIA_ending)

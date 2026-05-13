@@ -29,12 +29,15 @@ NODE_OPTIONS="$POLYFILL" npx vsce package --no-dependencies
 
 [ -n "$POLYFILL_FILE" ] && rm -f "$POLYFILL_FILE"
 
-vsix=$(ls cordelia-*.vsix 2>/dev/null | tail -1)
+vsix=$(ls cordelia-*.vsix 2>/dev/null | grep -v 'cordelia-latest' | tail -1)
+cp "$vsix" cordelia-latest.vsix
+
 echo
 echo "=== Done ==="
 echo "Package: $vsix"
+echo "Latest:  cordelia-latest.vsix (tracked in git)"
 echo
 echo "Install in VS Code:"
-echo "  code --install-extension $vsix"
+echo "  code --install-extension cordelia-latest.vsix"
 echo
 echo "Or: Extensions panel → ··· → Install from VSIX..."

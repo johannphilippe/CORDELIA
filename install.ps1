@@ -32,8 +32,8 @@ if (-not (Has-Command "winget")) {
 
 # ── Csound ────────────────────────────────────────────────────────────────────
 if (Has-Command "csound") {
-    $v = csound --version 2>&1 | Select-Object -First 1
-    Write-Host "[ok] Csound already installed ($v)"
+    $csoundPath = (Get-Command csound).Source
+    Write-Host "[ok] Csound already installed ($csoundPath)"
 } else {
     Write-Host "Installing Csound via winget..."
     winget install --id Csound.Csound --accept-package-agreements --accept-source-agreements
@@ -64,8 +64,8 @@ if (Test-Path $venv) {
 
 # ── Python deps ────────────────────────────────────────────────────────────────
 Write-Host "Installing Python dependencies into $venv ..."
-& "$venv\Scripts\pip.exe" install --upgrade pip --quiet
-& "$venv\Scripts\pip.exe" install -r requirements.txt
+& "$venv\Scripts\python.exe" -m pip install --upgrade pip --quiet
+& "$venv\Scripts\python.exe" -m pip install -r requirements.txt
 
 # ── run helper ────────────────────────────────────────────────────────────────
 @'

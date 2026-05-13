@@ -20,7 +20,7 @@ bash install.sh
 The script:
 - Checks whether Csound and PortAudio are already installed before installing them
 - Installs Csound and PortAudio via Homebrew (macOS) or apt (Ubuntu/Debian)
-- Checks whether Python 3.11+ is already present before installing it
+- Installs **Python 3.11 specifically** (not just any 3.11+) to ensure all dependency wheels are available
 - Creates a virtual environment at `.venv/` (avoids system Python conflicts)
 - Installs all Python dependencies into the venv
 - Generates a `run.sh` launch script

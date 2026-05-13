@@ -30,7 +30,9 @@ install_macos() {
     if ! need brew; then
         echo "Installing Homebrew..."
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-        eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null || true
+        # Support both Apple Silicon (/opt/homebrew) and Intel (/usr/local)
+        eval "$(/opt/homebrew/bin/brew shellenv)" 2>/dev/null || \
+        eval "$(/usr/local/bin/brew shellenv)" 2>/dev/null || true
     fi
     echo "[ok] Homebrew"
 
@@ -48,14 +50,18 @@ install_macos() {
         brew install portaudio
     fi
 
-    if python_ok python3; then
-        echo "[ok] Python $(python3 --version)"
+    # Pin to Python 3.11: newer versions (3.12, 3.13) may lack wheels for abjad
+    # and other dependencies. python3.11 is the tested target.
+    if need python3.11; then
+        echo "[ok] Python 3.11 found ($(python3.11 --version))"
+        PYTHON=python3.11
     else
         echo "Installing Python 3.11..."
         brew install python@3.11
+        # Homebrew does not always symlink python3.11 when a newer Python is
+        # already the default — use the explicit prefix path to be safe.
+        PYTHON="$(brew --prefix python@3.11)/bin/python3.11"
     fi
-
-    PYTHON=python3
 }
 
 # ── Linux (Debian/Ubuntu) ──────────────────────────────────────────────────────
@@ -85,18 +91,19 @@ install_linux() {
         pkgs+=(portaudio19-dev)
     fi
 
-    echo "Checking for Python 3.11+..."
-    if python_ok python3; then
-        echo "[ok] Python $(python3 --version)"
+    # Pin to Python 3.11 — same reason as macOS (wheel availability).
+    echo "Checking for Python 3.11..."
+    if need python3.11; then
+        echo "[ok] Python 3.11 found ($(python3.11 --version))"
     else
-        echo "Python 3.11+ not found, will install..."
-        pkgs+=(python3.11 python3.11-venv)
+        echo "Python 3.11 not found, will install..."
+        pkgs+=(python3.11 python3.11-venv python3.11-full)
     fi
 
     # python3-full bundles ensurepip, which is required to put pip inside a venv.
     # Ubuntu ships Python without it by default — always ensure it is present.
-    if ! dpkg -s python3-full &>/dev/null 2>&1; then
-        pkgs+=(python3-full python3-venv)
+    if ! dpkg -s python3.11-full &>/dev/null 2>&1; then
+        pkgs+=(python3.11-full)
     fi
 
     if [ ${#pkgs[@]} -gt 0 ]; then
@@ -105,7 +112,7 @@ install_linux() {
         sudo apt-get install -y "${pkgs[@]}"
     fi
 
-    PYTHON=python3
+    PYTHON=python3.11
 }
 
 # ── detect platform ────────────────────────────────────────────────────────────
@@ -145,8 +152,8 @@ fi
 
 # ── Python deps ────────────────────────────────────────────────────────────────
 echo "Installing Python dependencies into $VENV ..."
-"$VENV/bin/pip" install --upgrade pip --quiet
-"$VENV/bin/pip" install -r requirements.txt
+"$VENV/bin/python" -m pip install --upgrade pip --quiet
+"$VENV/bin/python" -m pip install -r requirements.txt
 
 # ── run helper ────────────────────────────────────────────────────────────────
 cat > run.sh << 'RUN'

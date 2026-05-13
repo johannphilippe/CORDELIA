@@ -2,6 +2,9 @@ import re
 import json
 from pathlib import Path
 
+# scala.py -> make/ -> script/ -> cordelia/ -> project root
+_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+
 def find_duplicate_files(directory):
 	file_dict = {}
 
@@ -75,7 +78,7 @@ def process_scala(directory, json_file):
 
 		ftgen_string = f'gi{p.stem} ftgen 0, 0, 0, -2, {degrees}, {interval}, {basefreq}, {basekey}, {base_val}, {", ".join(tuning_value)}'
 		scala[p.stem] = {
-			'path': str(p),
+			'path': str(p.relative_to(_ROOT)),
 			'description': description,
 			'default_ftgen': ftgen_string,
 			'degrees': degrees,

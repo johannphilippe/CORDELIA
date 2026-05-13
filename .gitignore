@@ -10,13 +10,6 @@ vscode-cordelia/node_modules/
 vscode-cordelia/*.vsix
 !vscode-cordelia/cordelia-latest.vsix
 
-# Generated config (recreated by cordelia/script/main_script.py)
-cordelia/config/INSTR.json
-cordelia/config/sonvs_anal.json
-cordelia/config/GEN.json
-cordelia/config/ROUTING.json
-cordelia/config/SCALA.json
-cordelia/config/tokens.json
 
 # Rendered audio outputs
 _score/**/*.wav

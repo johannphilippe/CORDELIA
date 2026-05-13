@@ -1,0 +1,1913 @@
+{
+    "aaron": {
+        "type": "instr",
+        "path": "_INSTR/instr/aaron.orc",
+        "global_var": [
+            "gkaaron_mod",
+            "gkaaron_indx",
+            "gkaaron_detune",
+            "giaaron_atk"
+        ]
+    },
+    "aaron2": {
+        "type": "instr",
+        "path": "_INSTR/instr/aaron2.orc",
+        "global_var": [
+            "gkaaron2_mod",
+            "gkaaron2_indx",
+            "gkaaron2_detune",
+            "giaaron2_atk"
+        ]
+    },
+    "alo": {
+        "type": "instr",
+        "path": "_INSTR/instr/alo.orc",
+        "global_var": [
+            "gkalo_channel_var",
+            "gialo_rel"
+        ]
+    },
+    "alone": {
+        "type": "instr",
+        "path": "_INSTR/instr/alone.orc",
+        "global_var": [
+            "gkalone_harm",
+            "gkalone_dur",
+            "gkalone_cps",
+            "gkalone_env",
+            "gialone_count"
+        ]
+    },
+    "alonefr": {
+        "type": "instr",
+        "path": "_INSTR/instr/alonefr.orc",
+        "global_var": [
+            "gkalonefr_env",
+            "gkalonefr_dur",
+            "gkalonefr_cps",
+            "gkalonefr_harm",
+            "gialonefr_count"
+        ]
+    },
+    "alones": {
+        "type": "instr",
+        "path": "_INSTR/instr/alones.orc",
+        "global_var": [
+            "gkalones_cps",
+            "gkalones_env"
+        ]
+    },
+    "alonik": {
+        "type": "instr",
+        "path": "_INSTR/instr/alonik.orc",
+        "global_var": []
+    },
+    "anal": {
+        "type": "instr",
+        "path": "_INSTR/instr/anal.orc",
+        "global_var": []
+    },
+    "anal2": {
+        "type": "instr",
+        "path": "_INSTR/instr/anal2.orc",
+        "global_var": []
+    },
+    "ance": {
+        "type": "instr",
+        "path": "_INSTR/instr/ance.orc",
+        "global_var": [
+            "gkance_cps_vib",
+            "giance_1",
+            "giance_index",
+            "giance_2",
+            "giance_factor"
+        ]
+    },
+    "ariel_rawer": {
+        "type": "instr",
+        "path": "_INSTR/instr/ariel_rawer.orc",
+        "global_var": []
+    },
+    "arm1chaos": {
+        "type": "instr",
+        "path": "_INSTR/instr/arm1chaos.orc",
+        "global_var": [
+            "giarm1chaos_2",
+            "giarm1chaos_1"
+        ]
+    },
+    "arm1gen": {
+        "type": "instr",
+        "path": "_INSTR/instr/arm1gen.orc",
+        "global_var": [
+            "giarm1gen_2",
+            "giarm1gen_1"
+        ]
+    },
+    "arm1gen2": {
+        "type": "instr",
+        "path": "_INSTR/instr/arm1gen2.orc",
+        "global_var": [
+            "giarm1gen2_1",
+            "giarm1gen2_2"
+        ]
+    },
+    "arm1gen3": {
+        "type": "instr",
+        "path": "_INSTR/instr/arm1gen3.orc",
+        "global_var": [
+            "giarm1gen3_2",
+            "giarm1gen3_1"
+        ]
+    },
+    "as_i_say": {
+        "type": "scripted_instr",
+        "path": "_INSTR/instr/as_i_say.py",
+        "extension": ".py"
+    },
+    "as_if_say": {
+        "type": "scripted_instr",
+        "path": "_INSTR/instr/as_if_say.py",
+        "extension": ".py"
+    },
+    "audrum": {
+        "type": "instr",
+        "path": "_INSTR/instr/audrum.orc",
+        "global_var": [
+            "gkaudrum_hh_1",
+            "gkaudrum_jit",
+            "gkaudrum_kick_3",
+            "gkaudrum_kick_2",
+            "gkaudrum_kick_1",
+            "gkaudrum_",
+            "giaudrum_kick_3_ft_freq",
+            "giaudrum_kick_1_atk",
+            "giaudrum_kick_2_ft",
+            "giaudrum_kick_2_dur",
+            "giaudrum_kick_3_dur",
+            "giaudrum_kick_1_01_wet",
+            "giaudrum_kick_2_01_wet",
+            "giaudrum_kick_3_atk",
+            "giaudrum_kick_1_dur",
+            "giaudrum_kick_2_atk",
+            "giaudrum_kick_3_01_wet",
+            "giaudrum_kick_1_ft",
+            "giaudrum_len"
+        ]
+    },
+    "bass": {
+        "type": "instr",
+        "path": "_INSTR/instr/bass.orc",
+        "global_var": []
+    },
+    "bass2": {
+        "type": "instr",
+        "path": "_INSTR/instr/bass2.orc",
+        "global_var": []
+    },
+    "bbij": {
+        "type": "instr",
+        "path": "_INSTR/instr/bbij.orc",
+        "global_var": []
+    },
+    "bd808": {
+        "type": "instr",
+        "path": "_INSTR/instr/bd808.orc",
+        "global_var": []
+    },
+    "bebois": {
+        "type": "hybrid",
+        "path": "_INSTR/hybrid/bebois.orc",
+        "required": [
+            "bois"
+        ],
+        "global_var": []
+    },
+    "beboiv": {
+        "type": "hybrid",
+        "path": "_INSTR/hybrid/beboiv.orc",
+        "required": [
+            "bois"
+        ],
+        "global_var": []
+    },
+    "beboo": {
+        "type": "hybrid",
+        "path": "_INSTR/hybrid/beboo.orc",
+        "required": [
+            "bois"
+        ],
+        "global_var": []
+    },
+    "bebor": {
+        "type": "hybrid",
+        "path": "_INSTR/hybrid/bebor.orc",
+        "required": [
+            "bois"
+        ],
+        "global_var": []
+    },
+    "bee": {
+        "type": "hybrid",
+        "path": "_INSTR/hybrid/bee.orc",
+        "required": [
+            "bee2"
+        ],
+        "global_var": [
+            "gibee_imp",
+            "gibee2_list",
+            "gibee2_len"
+        ]
+    },
+    "begad": {
+        "type": "hybrid",
+        "path": "_INSTR/hybrid/begad.orc",
+        "required": [
+            "gameld"
+        ],
+        "global_var": [
+            "gibegad_indx",
+            "gibegad_imp"
+        ]
+    },
+    "begaf": {
+        "type": "hybrid",
+        "path": "_INSTR/hybrid/begaf.orc",
+        "required": [
+            "gameld"
+        ],
+        "global_var": [
+            "gibegaf_indx",
+            "gibegaf_imp"
+        ]
+    },
+    "beme": {
+        "type": "hybrid",
+        "path": "_INSTR/hybrid/beme.orc",
+        "required": [
+            "chime"
+        ],
+        "global_var": [
+            "gibeme_indx",
+            "gibeme_imp"
+        ]
+    },
+    "between": {
+        "type": "instr",
+        "path": "_INSTR/instr/between.orc",
+        "global_var": [
+            "gkbetween_mod",
+            "gkbetween_space",
+            "gkbetween_var",
+            "gkbetween_ph"
+        ]
+    },
+    "betweenmore": {
+        "type": "instr",
+        "path": "_INSTR/instr/betweenmore.orc",
+        "global_var": [
+            "gkbetweenmore_ph",
+            "gkbetweenmore_space",
+            "gkbetweenmore_freq"
+        ]
+    },
+    "bobnite": {
+        "type": "instr",
+        "path": "_INSTR/instr/bobnite.orc",
+        "global_var": [
+            "gkbobnite_jit"
+        ]
+    },
+    "burd": {
+        "type": "instr",
+        "path": "_INSTR/instr/burd.orc",
+        "global_var": []
+    },
+    "burdsk": {
+        "type": "instr",
+        "path": "_INSTR/instr/burdsk.orc",
+        "global_var": []
+    },
+    "burdt": {
+        "type": "instr",
+        "path": "_INSTR/instr/burdt.orc",
+        "global_var": []
+    },
+    "calin": {
+        "type": "instr",
+        "path": "_INSTR/instr/calin.orc",
+        "global_var": [
+            "gkcalin_vib"
+        ]
+    },
+    "calinin": {
+        "type": "instr",
+        "path": "_INSTR/instr/calinin.orc",
+        "global_var": [
+            "gkcalinin_vib"
+        ]
+    },
+    "careless": {
+        "type": "instr",
+        "path": "_INSTR/instr/careless.orc",
+        "global_var": []
+    },
+    "careless2": {
+        "type": "instr",
+        "path": "_INSTR/instr/careless2.orc",
+        "global_var": []
+    },
+    "careless3": {
+        "type": "instr",
+        "path": "_INSTR/instr/careless3.orc",
+        "global_var": []
+    },
+    "careless4": {
+        "type": "instr",
+        "path": "_INSTR/instr/careless4.orc",
+        "global_var": []
+    },
+    "careless5": {
+        "type": "instr",
+        "path": "_INSTR/instr/careless5.orc",
+        "global_var": []
+    },
+    "careless6": {
+        "type": "instr",
+        "path": "_INSTR/instr/careless6.orc",
+        "global_var": []
+    },
+    "cascade": {
+        "type": "instr",
+        "path": "_INSTR/instr/cascade.orc",
+        "global_var": []
+    },
+    "cascadexp": {
+        "type": "instr",
+        "path": "_INSTR/instr/cascadexp.orc",
+        "global_var": []
+    },
+    "cello_pizz": {
+        "type": "instr",
+        "path": "_INSTR/instr/cello_pizz.orc",
+        "global_var": []
+    },
+    "click": {
+        "type": "instr",
+        "path": "_INSTR/instr/click.orc",
+        "global_var": []
+    },
+    "cnik": {
+        "type": "instr",
+        "path": "_INSTR/instr/cnik.orc",
+        "global_var": []
+    },
+    "corpia": {
+        "type": "instr",
+        "path": "_INSTR/instr/corpia.orc",
+        "global_var": []
+    },
+    "curij": {
+        "type": "instr",
+        "path": "_INSTR/instr/curij.orc",
+        "global_var": []
+    },
+    "curij2": {
+        "type": "instr",
+        "path": "_INSTR/instr/curij2.orc",
+        "global_var": []
+    },
+    "dacques": {
+        "type": "instr",
+        "path": "_INSTR/instr/dacques.orc",
+        "global_var": [
+            "gkdacques_perc1",
+            "gkdacques_onset",
+            "gkdacques_jit2",
+            "gkdacques_perc5",
+            "gkdacques_swing",
+            "gkdacques_kick1",
+            "gkdacques_cymbal",
+            "gkdacques_chh2",
+            "gkdacques_bell",
+            "gkdacques_tom2",
+            "gkdacques_perc4",
+            "gkdacques_",
+            "gkdacques_chh1",
+            "gkdacques_ohh1",
+            "gkdacques_perc2",
+            "gkdacques_jit1",
+            "gkdacques_ohh2",
+            "gkdacques_tom1",
+            "gkdacques_perc3",
+            "gkdacques_snare2",
+            "gkdacques_kick2",
+            "gkdacques_dur",
+            "gkdacques_snare1",
+            "gidacques_len"
+        ]
+    },
+    "dix": {
+        "type": "instr",
+        "path": "_INSTR/instr/dix.orc",
+        "global_var": []
+    },
+    "dmitri": {
+        "type": "instr",
+        "path": "_INSTR/instr/dmitri.orc",
+        "global_var": []
+    },
+    "dmitrif": {
+        "type": "instr",
+        "path": "_INSTR/instr/dmitrif.orc",
+        "global_var": [
+            "gkdmitrif_time"
+        ]
+    },
+    "dran": {
+        "type": "instr",
+        "path": "_INSTR/instr/dran.orc",
+        "global_var": []
+    },
+    "dran2": {
+        "type": "instr",
+        "path": "_INSTR/instr/dran2.orc",
+        "global_var": []
+    },
+    "echor2": {
+        "type": "instr",
+        "path": "_INSTR/instr/echor2.orc",
+        "global_var": []
+    },
+    "echor3p1": {
+        "type": "instr",
+        "path": "_INSTR/instr/echor3p1.orc",
+        "global_var": []
+    },
+    "esynth": {
+        "type": "instr",
+        "path": "_INSTR/instr/esynth.orc",
+        "global_var": [
+            "gkesynth_jitter"
+        ]
+    },
+    "esynth2": {
+        "type": "instr",
+        "path": "_INSTR/instr/esynth2.orc",
+        "global_var": [
+            "gkesynth2_jitter"
+        ]
+    },
+    "esynth2wave": {
+        "type": "instr",
+        "path": "_INSTR/instr/esynth2wave.orc",
+        "global_var": [
+            "gkesynth2wave_jitter"
+        ]
+    },
+    "esynth3": {
+        "type": "instr",
+        "path": "_INSTR/instr/esynth3.orc",
+        "global_var": [
+            "gkesynth3_jitter"
+        ]
+    },
+    "euarm": {
+        "type": "instr",
+        "path": "_INSTR/instr/euarm.orc",
+        "global_var": [
+            "gkeuarm_pulse",
+            "gkeuarm_onset"
+        ]
+    },
+    "euarm2": {
+        "type": "instr",
+        "path": "_INSTR/instr/euarm2.orc",
+        "global_var": [
+            "gkeuarm2_onset",
+            "gkeuarm2_pulse"
+        ]
+    },
+    "fairest": {
+        "type": "instr",
+        "path": "_INSTR/instr/fairest.orc",
+        "global_var": [
+            "gkfairest_harm"
+        ]
+    },
+    "fairest2": {
+        "type": "instr",
+        "path": "_INSTR/instr/fairest2.orc",
+        "global_var": []
+    },
+    "fairest3": {
+        "type": "instr",
+        "path": "_INSTR/instr/fairest3.orc",
+        "global_var": []
+    },
+    "fairest3f": {
+        "type": "instr",
+        "path": "_INSTR/instr/fairest3f.orc",
+        "global_var": []
+    },
+    "fairest4": {
+        "type": "instr",
+        "path": "_INSTR/instr/fairest4.orc",
+        "global_var": []
+    },
+    "fim": {
+        "type": "instr",
+        "path": "_INSTR/instr/fim.orc",
+        "global_var": [
+            "gkfim_detune",
+            "gkfim_var"
+        ]
+    },
+    "flij": {
+        "type": "instr",
+        "path": "_INSTR/instr/flij.orc",
+        "global_var": [
+            "giflij_indx"
+        ]
+    },
+    "flou": {
+        "type": "instr",
+        "path": "_INSTR/instr/flou.orc",
+        "global_var": [
+            "gkflou_p1"
+        ]
+    },
+    "flou2": {
+        "type": "instr",
+        "path": "_INSTR/instr/flou2.orc",
+        "global_var": [
+            "gkflou2_p1"
+        ]
+    },
+    "flute": {
+        "type": "instr",
+        "path": "_INSTR/instr/flute.orc",
+        "global_var": []
+    },
+    "fpiano": {
+        "type": "instr",
+        "path": "_INSTR/instr/fpiano.orc",
+        "global_var": []
+    },
+    "fpianos": {
+        "type": "instr",
+        "path": "_INSTR/instr/fpianos.orc",
+        "global_var": []
+    },
+    "fpianos2": {
+        "type": "instr",
+        "path": "_INSTR/instr/fpianos2.orc",
+        "global_var": []
+    },
+    "frei": {
+        "type": "instr",
+        "path": "_INSTR/instr/frei.orc",
+        "global_var": []
+    },
+    "fuji": {
+        "type": "instr",
+        "path": "_INSTR/instr/fuji.orc",
+        "global_var": [
+            "gkfuji_oct",
+            "gkfuji_form"
+        ]
+    },
+    "gausty": {
+        "type": "instr",
+        "path": "_INSTR/instr/gausty.orc",
+        "global_var": []
+    },
+    "ghosts_couleurs": {
+        "type": "instr",
+        "path": "_INSTR/instr/ghosts_couleurs.orc",
+        "global_var": [
+            "gighosts_couleurs_cps_last"
+        ]
+    },
+    "ghosts_hug": {
+        "type": "instr",
+        "path": "_INSTR/instr/ghosts_hug.orc",
+        "global_var": []
+    },
+    "ghosts_superparticular": {
+        "type": "instr",
+        "path": "_INSTR/instr/ghosts_superparticular.orc",
+        "global_var": [
+            "gighosts_superparticular_length",
+            "gighosts_superparticular_ratios"
+        ]
+    },
+    "glock": {
+        "type": "instr",
+        "path": "_INSTR/instr/glock.orc",
+        "global_var": []
+    },
+    "gluck": {
+        "type": "instr",
+        "path": "_INSTR/instr/gluck.orc",
+        "global_var": []
+    },
+    "grind": {
+        "type": "instr",
+        "path": "_INSTR/instr/grind.orc",
+        "global_var": [
+            "gkgrind_p2",
+            "gkgrind_p1"
+        ]
+    },
+    "grind2": {
+        "type": "instr",
+        "path": "_INSTR/instr/grind2.orc",
+        "global_var": [
+            "gkgrind2_p1"
+        ]
+    },
+    "grind3": {
+        "type": "instr",
+        "path": "_INSTR/instr/grind3.orc",
+        "global_var": [
+            "gkgrind3_p1"
+        ]
+    },
+    "grrr": {
+        "type": "instr",
+        "path": "_INSTR/instr/grrr.orc",
+        "global_var": []
+    },
+    "harps": {
+        "type": "instr",
+        "path": "_INSTR/instr/harps.orc",
+        "global_var": []
+    },
+    "hibar": {
+        "type": "instr",
+        "path": "_INSTR/instr/hibar.orc",
+        "global_var": []
+    },
+    "in1": {
+        "type": "instr",
+        "path": "_INSTR/instr/in1.orc",
+        "global_var": []
+    },
+    "in2": {
+        "type": "instr",
+        "path": "_INSTR/instr/in2.orc",
+        "global_var": []
+    },
+    "in3": {
+        "type": "instr",
+        "path": "_INSTR/instr/in3.orc",
+        "global_var": []
+    },
+    "inmic1": {
+        "type": "instr",
+        "path": "_INSTR/instr/inmic1.orc",
+        "global_var": []
+    },
+    "inmic2": {
+        "type": "instr",
+        "path": "_INSTR/instr/inmic2.orc",
+        "global_var": []
+    },
+    "iper": {
+        "type": "instr",
+        "path": "_INSTR/instr/iper.orc",
+        "global_var": [
+            "gkiper_vibfreq",
+            "gkiper_linvar"
+        ]
+    },
+    "iper3": {
+        "type": "instr",
+        "path": "_INSTR/instr/iper3.orc",
+        "global_var": [
+            "gkiper3_vibfreq",
+            "gkiper3_linvar"
+        ]
+    },
+    "ipercluster": {
+        "type": "instr",
+        "path": "_INSTR/instr/ipercluster.orc",
+        "global_var": [
+            "gkipercluster_linvar",
+            "gkipercluster_vibfreq"
+        ]
+    },
+    "ixland": {
+        "type": "instr",
+        "path": "_INSTR/instr/ixland.orc",
+        "global_var": []
+    },
+    "jifair": {
+        "type": "instr",
+        "path": "_INSTR/instr/jifair.orc",
+        "global_var": [
+            "gijifair_cps_last"
+        ]
+    },
+    "jifair0": {
+        "type": "instr",
+        "path": "_INSTR/instr/jifair0.orc",
+        "global_var": [
+            "gijifair0_cps_last"
+        ]
+    },
+    "jifair2": {
+        "type": "instr",
+        "path": "_INSTR/instr/jifair2.orc",
+        "global_var": [
+            "gijifair2_cps_last"
+        ]
+    },
+    "jifair3": {
+        "type": "instr",
+        "path": "_INSTR/instr/jifair3.orc",
+        "global_var": [
+            "gijifair3_cps_last"
+        ]
+    },
+    "jifairga": {
+        "type": "instr",
+        "path": "_INSTR/instr/jifairga.orc",
+        "global_var": [
+            "gkjifairga_ph",
+            "gijifairga_cps_last"
+        ]
+    },
+    "jifairga2": {
+        "type": "instr",
+        "path": "_INSTR/instr/jifairga2.orc",
+        "global_var": [
+            "gijifairga2_cps_last"
+        ]
+    },
+    "jifairga3": {
+        "type": "instr",
+        "path": "_INSTR/instr/jifairga3.orc",
+        "global_var": [
+            "gkjifairga3_ph",
+            "gijifairga3_cps_last"
+        ]
+    },
+    "jifairga3h": {
+        "type": "instr",
+        "path": "_INSTR/instr/jifairga3h.orc",
+        "global_var": [
+            "gkjifairga3h_ph",
+            "gijifairga3h_cps_last"
+        ]
+    },
+    "jifairgah": {
+        "type": "instr",
+        "path": "_INSTR/instr/jifairgah.orc",
+        "global_var": [
+            "gkjifairgah_ph",
+            "gijifairgah_cps_last"
+        ]
+    },
+    "jifairgahs": {
+        "type": "instr",
+        "path": "_INSTR/instr/jifairgahs.orc",
+        "global_var": [
+            "gkjifairgahs_ph",
+            "gijifairgahs_cps_last"
+        ]
+    },
+    "joscil": {
+        "type": "instr",
+        "path": "_INSTR/instr/joscil.orc",
+        "global_var": []
+    },
+    "joscil2": {
+        "type": "instr",
+        "path": "_INSTR/instr/joscil2.orc",
+        "global_var": []
+    },
+    "joscil3": {
+        "type": "instr",
+        "path": "_INSTR/instr/joscil3.orc",
+        "global_var": []
+    },
+    "joscil4": {
+        "type": "instr",
+        "path": "_INSTR/instr/joscil4.orc",
+        "global_var": []
+    },
+    "joscil5": {
+        "type": "instr",
+        "path": "_INSTR/instr/joscil5.orc",
+        "global_var": []
+    },
+    "joscil6": {
+        "type": "instr",
+        "path": "_INSTR/instr/joscil6.orc",
+        "global_var": []
+    },
+    "joscil7": {
+        "type": "instr",
+        "path": "_INSTR/instr/joscil7.orc",
+        "global_var": []
+    },
+    "june": {
+        "type": "instr",
+        "path": "_INSTR/instr/june.orc",
+        "global_var": []
+    },
+    "kali": {
+        "type": "instr",
+        "path": "_INSTR/instr/kali.orc",
+        "global_var": []
+    },
+    "kick": {
+        "type": "instr",
+        "path": "_INSTR/instr/kick.orc",
+        "global_var": []
+    },
+    "kick2": {
+        "type": "instr",
+        "path": "_INSTR/instr/kick2.orc",
+        "global_var": []
+    },
+    "knee": {
+        "type": "instr",
+        "path": "_INSTR/instr/knee.orc",
+        "global_var": []
+    },
+    "kneet": {
+        "type": "instr",
+        "path": "_INSTR/instr/kneet.orc",
+        "global_var": []
+    },
+    "kneq": {
+        "type": "instr",
+        "path": "_INSTR/instr/kneq.orc",
+        "global_var": []
+    },
+    "loki": {
+        "type": "instr",
+        "path": "_INSTR/instr/loki.orc",
+        "global_var": [
+            "giloki_mecha"
+        ]
+    },
+    "lokir": {
+        "type": "instr",
+        "path": "_INSTR/instr/lokir.orc",
+        "global_var": [
+            "gilokir_mecha"
+        ]
+    },
+    "lucas": {
+        "type": "instr",
+        "path": "_INSTR/instr/lucas.orc",
+        "global_var": []
+    },
+    "lune": {
+        "type": "instr",
+        "path": "_INSTR/instr/lune.orc",
+        "global_var": []
+    },
+    "luv": {
+        "type": "instr",
+        "path": "_INSTR/instr/luv.orc",
+        "global_var": []
+    },
+    "maij": {
+        "type": "instr",
+        "path": "_INSTR/instr/maij.orc",
+        "global_var": [
+            "gimaij_indx"
+        ]
+    },
+    "maij2": {
+        "type": "instr",
+        "path": "_INSTR/instr/maij2.orc",
+        "global_var": [
+            "gimaij2_indx"
+        ]
+    },
+    "marimba": {
+        "type": "instr",
+        "path": "_INSTR/instr/marimba.orc",
+        "global_var": []
+    },
+    "meli2": {
+        "type": "instr",
+        "path": "_INSTR/instr/meli2.orc",
+        "global_var": []
+    },
+    "metal": {
+        "type": "instr",
+        "path": "_INSTR/instr/metal.orc",
+        "global_var": [
+            "gimetal_max_series",
+            "gimetal_metallic_harmonic_series"
+        ]
+    },
+    "mhon": {
+        "type": "instr",
+        "path": "_INSTR/instr/mhon.orc",
+        "global_var": [
+            "gkmhon_start",
+            "gkmhon_cps",
+            "gkmhon_port",
+            "gimhon_choose"
+        ]
+    },
+    "mhon2": {
+        "type": "instr",
+        "path": "_INSTR/instr/mhon2.orc",
+        "global_var": [
+            "gkmhon2_start",
+            "gkmhon2_cps",
+            "gkmhon2_ch",
+            "gimhon2_choose"
+        ]
+    },
+    "mhon2q": {
+        "type": "instr",
+        "path": "_INSTR/instr/mhon2q.orc",
+        "global_var": [
+            "gkmhon2q_start",
+            "gkmhon2q_cps",
+            "gkmhon2q_ch",
+            "gimhon2q_choose"
+        ]
+    },
+    "mhonq": {
+        "type": "instr",
+        "path": "_INSTR/instr/mhonq.orc",
+        "global_var": [
+            "gkmhonq_cps",
+            "gkmhonq_port",
+            "gkmhonq_start",
+            "gimhonq_choose"
+        ]
+    },
+    "mhonr": {
+        "type": "instr",
+        "path": "_INSTR/instr/mhonr.orc",
+        "global_var": [
+            "gkmhonr_start",
+            "gkmhonr_cps",
+            "gkmhonr_port",
+            "gimhonr_choose"
+        ]
+    },
+    "mhonrx": {
+        "type": "instr",
+        "path": "_INSTR/instr/mhonrx.orc",
+        "global_var": [
+            "gkmhonrx_start",
+            "gkmhonrx_cps",
+            "gkmhonrx_port",
+            "gimhonrx_choose"
+        ]
+    },
+    "mhont": {
+        "type": "instr",
+        "path": "_INSTR/instr/mhont.orc",
+        "global_var": [
+            "gkmhont_port",
+            "gkmhont_cps",
+            "gkmhont_start",
+            "gimhont_choose"
+        ]
+    },
+    "mhont2": {
+        "type": "instr",
+        "path": "_INSTR/instr/mhont2.orc",
+        "global_var": [
+            "gkmhont2_start",
+            "gkmhont2_port",
+            "gkmhont2_cps",
+            "gimhont2_choose"
+        ]
+    },
+    "mhontx": {
+        "type": "instr",
+        "path": "_INSTR/instr/mhontx.orc",
+        "global_var": [
+            "gkmhontx_port",
+            "gimhontx_cps"
+        ]
+    },
+    "mkick": {
+        "type": "instr",
+        "path": "_INSTR/instr/mkick.orc",
+        "global_var": []
+    },
+    "mpull": {
+        "type": "instr",
+        "path": "_INSTR/instr/mpull.orc",
+        "global_var": []
+    },
+    "mrhodes": {
+        "type": "instr",
+        "path": "_INSTR/instr/mrhodes.orc",
+        "global_var": []
+    },
+    "music_box": {
+        "type": "instr",
+        "path": "_INSTR/instr/music_box.orc",
+        "global_var": [
+            "gimusic_box_index"
+        ]
+    },
+    "nlf": {
+        "type": "instr",
+        "path": "_INSTR/instr/nlf.orc",
+        "global_var": []
+    },
+    "noi": {
+        "type": "instr",
+        "path": "_INSTR/instr/noi.orc",
+        "global_var": []
+    },
+    "noij": {
+        "type": "instr",
+        "path": "_INSTR/instr/noij.orc",
+        "global_var": []
+    },
+    "noijs": {
+        "type": "instr",
+        "path": "_INSTR/instr/noijs.orc",
+        "global_var": []
+    },
+    "noijs2": {
+        "type": "instr",
+        "path": "_INSTR/instr/noijs2.orc",
+        "global_var": [
+            "ginoijs2_count"
+        ]
+    },
+    "noijt": {
+        "type": "instr",
+        "path": "_INSTR/instr/noijt.orc",
+        "global_var": [
+            "gknoijt_cps",
+            "gknoijt_port",
+            "gknoijt_start",
+            "ginoijt_choose"
+        ]
+    },
+    "notalo": {
+        "type": "instr",
+        "path": "_INSTR/instr/notalo.orc",
+        "global_var": [
+            "gknotalo_channel_var",
+            "ginotalo_rel"
+        ]
+    },
+    "notalosc": {
+        "type": "instr",
+        "path": "_INSTR/instr/notalosc.orc",
+        "global_var": [
+            "gknotalosc_channel_var",
+            "ginotalosc_rel"
+        ]
+    },
+    "ohoh": {
+        "type": "instr",
+        "path": "_INSTR/instr/ohoh.orc",
+        "global_var": [
+            "giohohft",
+            "giohohmorf"
+        ]
+    },
+    "org": {
+        "type": "instr",
+        "path": "_INSTR/instr/org.orc",
+        "global_var": []
+    },
+    "org2": {
+        "type": "instr",
+        "path": "_INSTR/instr/org2.orc",
+        "global_var": [
+            "giorg2_val"
+        ]
+    },
+    "org3": {
+        "type": "instr",
+        "path": "_INSTR/instr/org3.orc",
+        "global_var": [
+            "giorg3_val"
+        ]
+    },
+    "orgu": {
+        "type": "instr",
+        "path": "_INSTR/instr/orgu.orc",
+        "global_var": []
+    },
+    "orphans": {
+        "type": "instr",
+        "path": "_INSTR/instr/orphans.orc",
+        "global_var": []
+    },
+    "orphans2": {
+        "type": "instr",
+        "path": "_INSTR/instr/orphans2.orc",
+        "global_var": [
+            "gkorphans2_var"
+        ]
+    },
+    "orphans3": {
+        "type": "instr",
+        "path": "_INSTR/instr/orphans3.orc",
+        "global_var": [
+            "gkorphans3_vib"
+        ]
+    },
+    "orphans3r": {
+        "type": "instr",
+        "path": "_INSTR/instr/orphans3r.orc",
+        "global_var": [
+            "gkorphans3r_vib"
+        ]
+    },
+    "orphans3x": {
+        "type": "instr",
+        "path": "_INSTR/instr/orphans3x.orc",
+        "global_var": [
+            "gkorphans3x_vib"
+        ]
+    },
+    "orphans3xs": {
+        "type": "instr",
+        "path": "_INSTR/instr/orphans3xs.orc",
+        "global_var": []
+    },
+    "orphans3xv": {
+        "type": "instr",
+        "path": "_INSTR/instr/orphans3xv.orc",
+        "global_var": []
+    },
+    "orphans3xx": {
+        "type": "instr",
+        "path": "_INSTR/instr/orphans3xx.orc",
+        "global_var": [
+            "gkorphans3xx_vib"
+        ]
+    },
+    "orphans4": {
+        "type": "instr",
+        "path": "_INSTR/instr/orphans4.orc",
+        "global_var": [
+            "gkorphans4_vib"
+        ]
+    },
+    "piano": {
+        "type": "instr",
+        "path": "_INSTR/instr/piano.orc",
+        "global_var": []
+    },
+    "pianoch": {
+        "type": "instr",
+        "path": "_INSTR/instr/pianoch.orc",
+        "global_var": []
+    },
+    "pianon": {
+        "type": "instr",
+        "path": "_INSTR/instr/pianon.orc",
+        "global_var": []
+    },
+    "pianon2": {
+        "type": "instr",
+        "path": "_INSTR/instr/pianon2.orc",
+        "global_var": []
+    },
+    "pianons": {
+        "type": "instr",
+        "path": "_INSTR/instr/pianons.orc",
+        "global_var": []
+    },
+    "pianons2": {
+        "type": "instr",
+        "path": "_INSTR/instr/pianons2.orc",
+        "global_var": []
+    },
+    "pianot": {
+        "type": "instr",
+        "path": "_INSTR/instr/pianot.orc",
+        "global_var": []
+    },
+    "pianto": {
+        "type": "instr",
+        "path": "_INSTR/instr/pianto.orc",
+        "global_var": []
+    },
+    "piantos": {
+        "type": "instr",
+        "path": "_INSTR/instr/piantos.orc",
+        "global_var": []
+    },
+    "piantos2": {
+        "type": "instr",
+        "path": "_INSTR/instr/piantos2.orc",
+        "global_var": []
+    },
+    "pij": {
+        "type": "instr",
+        "path": "_INSTR/instr/pij.orc",
+        "global_var": [
+            "gipij_adsr",
+            "gipij_ftrev1",
+            "gipij_ptof",
+            "gipij_ftrev2"
+        ]
+    },
+    "pijnor": {
+        "type": "instr",
+        "path": "_INSTR/instr/pijnor.orc",
+        "global_var": [
+            "gipijnor_ptof",
+            "gipijnor_ftrev1",
+            "gipijnor_ftrev2",
+            "gipijnor_adsr"
+        ]
+    },
+    "plum": {
+        "type": "instr",
+        "path": "_INSTR/instr/plum.orc",
+        "global_var": [
+            "giplum_freqs1",
+            "giplum_freqs2"
+        ]
+    },
+    "plumk": {
+        "type": "instr",
+        "path": "_INSTR/instr/plumk.orc",
+        "global_var": [
+            "gkplumk_damp",
+            "giplumk_detune"
+        ]
+    },
+    "plums": {
+        "type": "instr",
+        "path": "_INSTR/instr/plums.orc",
+        "global_var": [
+            "giplums_formant_count"
+        ]
+    },
+    "plums2": {
+        "type": "instr",
+        "path": "_INSTR/instr/plums2.orc",
+        "global_var": [
+            "giplums2_formant_count"
+        ]
+    },
+    "polaris": {
+        "type": "instr",
+        "path": "_INSTR/instr/polaris.orc",
+        "global_var": [
+            "gkpolaris_onset",
+            "gkpolaris_kick1",
+            "gkpolaris_noise1",
+            "gkpolaris_jit2",
+            "gkpolaris_noise_c3",
+            "gkpolaris_kick2_c2",
+            "gkpolaris_snare3",
+            "gkpolaris_swing",
+            "gkpolaris_noise3",
+            "gkpolaris_highkick",
+            "gkpolaris_noise2",
+            "gkpolaris_",
+            "gkpolaris_snare1",
+            "gkpolaris_kick2",
+            "gkpolaris_snare2",
+            "gkpolaris_dur",
+            "gkpolaris_jit1",
+            "gkpolaris_snare4",
+            "gipolaris_kick2_c2",
+            "gipolaris_noise2",
+            "gipolaris_kick2",
+            "gipolaris_highkick",
+            "gipolaris_len",
+            "gipolaris_noise_c3",
+            "gipolaris_snare3",
+            "gipolaris_noise1",
+            "gipolaris_snare1",
+            "gipolaris_snare2",
+            "gipolaris_kick1",
+            "gipolaris_noise3",
+            "gipolaris_snare4"
+        ]
+    },
+    "polivoks": {
+        "type": "instr",
+        "path": "_INSTR/instr/polivoks.orc",
+        "global_var": [
+            "gkpolivoks_swing",
+            "gkpolivoks_jit1",
+            "gkpolivoks_hh_analog",
+            "gkpolivoks_rd_analog",
+            "gkpolivoks_jit2",
+            "gkpolivoks_",
+            "gkpolivoks_onset",
+            "gkpolivoks_bd_analog1",
+            "gkpolivoks_sn_flanger",
+            "gkpolivoks_dur",
+            "gkpolivoks_bd_electro",
+            "gkpolivoks_sn_solid",
+            "gkpolivoks_len",
+            "gkpolivoks_bd_analog2",
+            "gkpolivoks_sn_synth"
+        ]
+    },
+    "polivoks2": {
+        "type": "instr",
+        "path": "_INSTR/instr/polivoks2.orc",
+        "global_var": [
+            "gkpolivoks2_swing",
+            "gkpolivoks2_jit2",
+            "gkpolivoks2_bd_analog2",
+            "gkpolivoks2_sn_flanger",
+            "gkpolivoks2_hh_analog",
+            "gkpolivoks2_onset",
+            "gkpolivoks2_jit1",
+            "gkpolivoks2_rd_analog",
+            "gkpolivoks2_sn_synth",
+            "gkpolivoks2_",
+            "gkpolivoks2_bd_electro",
+            "gkpolivoks2_sn_solid",
+            "gkpolivoks2_dur",
+            "gkpolivoks2_bd_analog1",
+            "gkpolivoks2_len"
+        ]
+    },
+    "puck": {
+        "type": "instr",
+        "path": "_INSTR/instr/puck.orc",
+        "global_var": []
+    },
+    "pucky": {
+        "type": "instr",
+        "path": "_INSTR/instr/pucky.orc",
+        "global_var": []
+    },
+    "pur": {
+        "type": "instr",
+        "path": "_INSTR/instr/pur.orc",
+        "global_var": []
+    },
+    "pwm": {
+        "type": "instr",
+        "path": "_INSTR/instr/pwm.orc",
+        "global_var": []
+    },
+    "pwm2": {
+        "type": "instr",
+        "path": "_INSTR/instr/pwm2.orc",
+        "global_var": []
+    },
+    "qb": {
+        "type": "instr",
+        "path": "_INSTR/instr/qb.orc",
+        "global_var": [
+            "gkqb_q",
+            "gkqb_freq"
+        ]
+    },
+    "quad": {
+        "type": "instr",
+        "path": "_INSTR/instr/quad.orc",
+        "global_var": [
+            "giquad_index"
+        ]
+    },
+    "r909": {
+        "type": "instr",
+        "path": "_INSTR/instr/r909.orc",
+        "global_var": [
+            "gkr909_snare_rimshot",
+            "gkr909_bass_1",
+            "gkr909_cym_ride",
+            "gkr909_tom_high",
+            "gkr909_hh_opcl",
+            "gkr909_cym_crash",
+            "gkr909_snare_handclap",
+            "gkr909_tom_low",
+            "gkr909_tom_mid",
+            "gkr909_hh_closed",
+            "gkr909_stopper",
+            "gkr909_hh_clop",
+            "gkr909_bass_2",
+            "gkr909_snare",
+            "gkr909_hh_open",
+            "gkr909_"
+        ]
+    },
+    "r909h": {
+        "type": "instr",
+        "path": "_INSTR/instr/r909h.orc",
+        "global_var": [
+            "gkr909h_hh_opcl",
+            "gkr909h_cym_ride",
+            "gkr909h_hh_clop",
+            "gkr909h_cym_crash",
+            "gkr909h_hh_open",
+            "gkr909h_stopper",
+            "gkr909h_",
+            "gkr909h_hh_closed",
+            "gkr909h_ratio"
+        ]
+    },
+    "r909t": {
+        "type": "instr",
+        "path": "_INSTR/instr/r909t.orc",
+        "global_var": [
+            "gkr909t_tom_mid",
+            "gkr909t_tom_low",
+            "gkr909t_snare_handclap",
+            "gkr909t_ratio",
+            "gkr909t_snare",
+            "gkr909t_snare_rimshot",
+            "gkr909t_bass_2",
+            "gkr909t_bass_1",
+            "gkr909t_",
+            "gkr909t_stopper",
+            "gkr909t_tom_high"
+        ]
+    },
+    "r909t2": {
+        "type": "instr",
+        "path": "_INSTR/instr/r909t2.orc",
+        "global_var": [
+            "gkr909t2_bass_1",
+            "gir909t2_len"
+        ]
+    },
+    "repuck": {
+        "type": "instr",
+        "path": "_INSTR/instr/repuck.orc",
+        "global_var": []
+    },
+    "rhod": {
+        "type": "instr",
+        "path": "_INSTR/instr/rhod.orc",
+        "global_var": [
+            "girhod_fn"
+        ]
+    },
+    "rhodt": {
+        "type": "instr",
+        "path": "_INSTR/instr/rhodt.orc",
+        "global_var": [
+            "girhodt_fn"
+        ]
+    },
+    "rim": {
+        "type": "instr",
+        "path": "_INSTR/instr/rim.orc",
+        "global_var": []
+    },
+    "rj": {
+        "type": "instr",
+        "path": "_INSTR/instr/rj.orc",
+        "global_var": [
+            "gkrj_bd",
+            "gkrj_sn",
+            "gkrj_ride"
+        ]
+    },
+    "sakata": {
+        "type": "instr",
+        "path": "_INSTR/instr/sakata.orc",
+        "global_var": [
+            "gksakata_snare1",
+            "gksakata_agogo2",
+            "gksakata_snare2",
+            "gksakata_closedhh",
+            "gksakata_tom1",
+            "gksakata_dur",
+            "gksakata_tom3",
+            "gksakata_swing",
+            "gksakata_",
+            "gksakata_onset",
+            "gksakata_crash",
+            "gksakata_snare3",
+            "gksakata_openhh",
+            "gksakata_rim",
+            "gksakata_tom4",
+            "gksakata_agogo1",
+            "gksakata_tom2",
+            "gksakata_cabasa1",
+            "gksakata_ride1",
+            "gksakata_bass1",
+            "gksakata_jit2",
+            "gksakata_cabasa2",
+            "gksakata_jit1",
+            "gksakata_clap",
+            "gksakata_ride2",
+            "gksakata_bass3",
+            "gksakata_accenthh",
+            "gksakata_bass2",
+            "gisakata_len"
+        ]
+    },
+    "sallen": {
+        "type": "instr",
+        "path": "_INSTR/instr/sallen.orc",
+        "global_var": []
+    },
+    "sallen2": {
+        "type": "instr",
+        "path": "_INSTR/instr/sallen2.orc",
+        "global_var": []
+    },
+    "send_freq1": {
+        "type": "instr",
+        "path": "_INSTR/instr/send_freq1.orc",
+        "global_var": [
+            "gisend_freq1_ch"
+        ]
+    },
+    "send_freq2": {
+        "type": "instr",
+        "path": "_INSTR/instr/send_freq2.orc",
+        "global_var": [
+            "gisend_freq2_ch"
+        ]
+    },
+    "seno": {
+        "type": "instr",
+        "path": "_INSTR/instr/seno.orc",
+        "global_var": []
+    },
+    "seno_pur": {
+        "type": "instr",
+        "path": "_INSTR/instr/seno_pur.orc",
+        "global_var": []
+    },
+    "senom": {
+        "type": "instr",
+        "path": "_INSTR/instr/senom.orc",
+        "global_var": [
+            "gksenom_noteon",
+            "gksenom_cps",
+            "gksenom_dyn",
+            "gksenom_port"
+        ]
+    },
+    "senop": {
+        "type": "instr",
+        "path": "_INSTR/instr/senop.orc",
+        "global_var": []
+    },
+    "senot": {
+        "type": "instr",
+        "path": "_INSTR/instr/senot.orc",
+        "global_var": []
+    },
+    "simki": {
+        "type": "instr",
+        "path": "_INSTR/instr/simki.orc",
+        "global_var": [
+            "gisimki_del"
+        ]
+    },
+    "skij": {
+        "type": "instr",
+        "path": "_INSTR/instr/skij.orc",
+        "global_var": []
+    },
+    "soures": {
+        "type": "instr",
+        "path": "_INSTR/instr/soures.orc",
+        "global_var": []
+    },
+    "spectr": {
+        "type": "instr",
+        "path": "_INSTR/instr/spectr.orc",
+        "global_var": [
+            "gkspectr_onset",
+            "gkspectr_dur",
+            "gkspectr_swing",
+            "gkspectr_jit",
+            "gispectr_tb2",
+            "gispectr_sd1",
+            "gispectr_mt2",
+            "gispectr_ht1",
+            "gispectr_rs1",
+            "gispectr_rs2",
+            "gispectr_rc2",
+            "gispectr_tb1",
+            "gispectr_ch1",
+            "gispectr_patterns_mt",
+            "gispectr_patterns_sd",
+            "gispectr_rc1",
+            "gispectr_patterns_oh",
+            "gispectr_cb2",
+            "gispectr_patterns_ma",
+            "gispectr_mt3",
+            "gispectr_bd1",
+            "gispectr_patterns_ht",
+            "gispectr_patterns_cc",
+            "gispectr_bd3",
+            "gispectr_hc2",
+            "gispectr_ma1",
+            "gispectr_patterns_rs",
+            "gispectr_ht3",
+            "gispectr_mt1",
+            "gispectr_cb1",
+            "gispectr_patterns_hc",
+            "gispectr_oh1",
+            "gispectr_len",
+            "gispectr_patterns_ch",
+            "gispectr_patterns_",
+            "gispectr_oh2",
+            "gispectr_ma2",
+            "gispectr_sd2",
+            "gispectr_lt2",
+            "gispectr_patterns_tb",
+            "gispectr_lt3",
+            "gispectr_hc1",
+            "gispectr_patterns_bd",
+            "gispectr_cl2",
+            "gispectr_cc1",
+            "gispectr_bd2",
+            "gispectr_cc2",
+            "gispectr_ch2",
+            "gispectr_lt1",
+            "gispectr_patterns_lt",
+            "gispectr_cl1",
+            "gispectr_lc2",
+            "gispectr_patterns_cl",
+            "gispectr_patterns_cb",
+            "gispectr_lc1",
+            "gispectr_patterns_rc",
+            "gispectr_patterns_lc",
+            "gispectr_ht2"
+        ]
+    },
+    "sufij": {
+        "type": "instr",
+        "path": "_INSTR/instr/sufij.orc",
+        "global_var": [
+            "gksufij_p3",
+            "gksufij_p2",
+            "gksufij_p1"
+        ]
+    },
+    "sufij2": {
+        "type": "instr",
+        "path": "_INSTR/instr/sufij2.orc",
+        "global_var": [
+            "gksufij2_p1",
+            "gksufij2_p3",
+            "gksufij2_p2"
+        ]
+    },
+    "sunij": {
+        "type": "instr",
+        "path": "_INSTR/instr/sunij.orc",
+        "global_var": []
+    },
+    "sywave": {
+        "type": "instr",
+        "path": "_INSTR/instr/sywave.orc",
+        "global_var": []
+    },
+    "sywave2": {
+        "type": "instr",
+        "path": "_INSTR/instr/sywave2.orc",
+        "global_var": []
+    },
+    "tart": {
+        "type": "instr",
+        "path": "_INSTR/instr/tart.orc",
+        "global_var": []
+    },
+    "tartn": {
+        "type": "instr",
+        "path": "_INSTR/instr/tartn.orc",
+        "global_var": [
+            "gktartn_vibfreq"
+        ]
+    },
+    "tlinh": {
+        "type": "instr",
+        "path": "_INSTR/instr/tlinh.orc",
+        "global_var": []
+    },
+    "toomuchalone": {
+        "type": "instr",
+        "path": "_INSTR/instr/toomuchalone.orc",
+        "global_var": [
+            "gktoomuchalone_cps",
+            "gktoomuchalone_amp",
+            "gktoomuchalone_dur",
+            "gktoomuchalone_env",
+            "gitoomuchalone_dummy",
+            "gitoomuchalone_morf"
+        ]
+    },
+    "toy_piano": {
+        "type": "instr",
+        "path": "_INSTR/instr/toy_piano.orc",
+        "global_var": []
+    },
+    "trans": {
+        "type": "instr",
+        "path": "_INSTR/instr/trans.orc",
+        "global_var": []
+    },
+    "uj": {
+        "type": "instr",
+        "path": "_INSTR/instr/uj.orc",
+        "global_var": []
+    },
+    "uj2": {
+        "type": "instr",
+        "path": "_INSTR/instr/uj2.orc",
+        "global_var": []
+    },
+    "uj3": {
+        "type": "instr",
+        "path": "_INSTR/instr/uj3.orc",
+        "global_var": [
+            "giuj3_morf",
+            "giuj3_ft"
+        ]
+    },
+    "ujlun": {
+        "type": "instr",
+        "path": "_INSTR/instr/ujlun.orc",
+        "global_var": [
+            "gkujlun_filter"
+        ]
+    },
+    "uni": {
+        "type": "instr",
+        "path": "_INSTR/instr/uni.orc",
+        "global_var": []
+    },
+    "vbell": {
+        "type": "instr",
+        "path": "_INSTR/instr/vbell.orc",
+        "global_var": []
+    },
+    "ventre": {
+        "type": "instr",
+        "path": "_INSTR/instr/ventre.orc",
+        "global_var": [
+            "gkventre_lad",
+            "gkventre_dur",
+            "gkventre_harm",
+            "gkventre_cps",
+            "gkventre_env",
+            "giventre_count"
+        ]
+    },
+    "voyager": {
+        "type": "instr",
+        "path": "_INSTR/instr/voyager.orc",
+        "global_var": [
+            "gkvoyager_tom1",
+            "gkvoyager_chh1",
+            "gkvoyager_kick1",
+            "gkvoyager_ohh1",
+            "gkvoyager_bell",
+            "gkvoyager_snare2",
+            "gkvoyager_swing",
+            "gkvoyager_kick2",
+            "gkvoyager_",
+            "gkvoyager_perc3",
+            "gkvoyager_jit2",
+            "gkvoyager_perc2",
+            "gkvoyager_snare1",
+            "gkvoyager_perc1",
+            "gkvoyager_tom2",
+            "gkvoyager_jit1",
+            "gkvoyager_perc5",
+            "gkvoyager_ohh2",
+            "gkvoyager_dur",
+            "gkvoyager_perc4",
+            "gkvoyager_onset",
+            "gkvoyager_chh2",
+            "gkvoyager_cymbal",
+            "givoyager_len"
+        ]
+    },
+    "voyager2": {
+        "type": "instr",
+        "path": "_INSTR/instr/voyager2.orc",
+        "global_var": [
+            "gkvoyager2_perc1",
+            "gkvoyager2_ohh2",
+            "gkvoyager2_kick1",
+            "gkvoyager2_snare1",
+            "gkvoyager2_chh1",
+            "gkvoyager2_",
+            "gkvoyager2_cymbal",
+            "gkvoyager2_perc3",
+            "gkvoyager2_perc5",
+            "gkvoyager2_jit2",
+            "gkvoyager2_tom1",
+            "gkvoyager2_swing",
+            "gkvoyager2_snare2",
+            "gkvoyager2_onset",
+            "gkvoyager2_jit1",
+            "gkvoyager2_dur",
+            "gkvoyager2_kick2",
+            "gkvoyager2_perc2",
+            "gkvoyager2_chh2",
+            "gkvoyager2_bell",
+            "gkvoyager2_ohh1",
+            "gkvoyager2_perc4",
+            "gkvoyager2_tom2",
+            "givoyager2_len"
+        ]
+    },
+    "wendi": {
+        "type": "instr",
+        "path": "_INSTR/instr/wendi.orc",
+        "global_var": []
+    },
+    "wendj": {
+        "type": "instr",
+        "path": "_INSTR/instr/wendj.orc",
+        "global_var": []
+    },
+    "wendy": {
+        "type": "instr",
+        "path": "_INSTR/instr/wendy.orc",
+        "global_var": []
+    },
+    "witches": {
+        "type": "instr",
+        "path": "_INSTR/instr/witches.orc",
+        "global_var": [
+            "gkwitches_detune",
+            "gkwitches_mod",
+            "gkwitches_ndx"
+        ]
+    },
+    "witches11": {
+        "type": "instr",
+        "path": "_INSTR/instr/witches11.orc",
+        "global_var": [
+            "gkwitches11_detune",
+            "gkwitches11_mod",
+            "gkwitches11_ndx"
+        ]
+    },
+    "witches2": {
+        "type": "instr",
+        "path": "_INSTR/instr/witches2.orc",
+        "global_var": [
+            "gkwitches2_ndx",
+            "gkwitches2_mod",
+            "gkwitches2_detune"
+        ]
+    },
+    "witchesv": {
+        "type": "instr",
+        "path": "_INSTR/instr/witchesv.orc",
+        "global_var": [
+            "gkwitchesv_detune",
+            "gkwitchesv_mod",
+            "gkwitchesv_ndx"
+        ]
+    },
+    "witchesv2": {
+        "type": "instr",
+        "path": "_INSTR/instr/witchesv2.orc",
+        "global_var": [
+            "gkwitchesv2_detune",
+            "gkwitchesv2_ndx",
+            "gkwitchesv2_mod"
+        ]
+    },
+    "witchesvr": {
+        "type": "instr",
+        "path": "_INSTR/instr/witchesvr.orc",
+        "global_var": [
+            "gkwitchesvr_mod",
+            "gkwitchesvr_ndx",
+            "gkwitchesvr_detune"
+        ]
+    },
+    "wutang": {
+        "type": "instr",
+        "path": "_INSTR/instr/wutang.orc",
+        "global_var": [
+            "gkwutang_vib"
+        ]
+    },
+    "xylo": {
+        "type": "instr",
+        "path": "_INSTR/instr/xylo.orc",
+        "global_var": [
+            "gixylo_dummy",
+            "gixylo_vibes",
+            "gixylo_ft",
+            "gixylo_morf"
+        ]
+    }
+}
